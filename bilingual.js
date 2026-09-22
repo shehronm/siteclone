@@ -1,5 +1,6 @@
 (()=>{
 'use strict';
+if(!window.matchMedia('(min-width: 1200px)').matches)return;
 const lang=(document.documentElement.lang||'en').toLowerCase().startsWith('ru')?'ru':'en';
 const path=location.pathname;
 let enHref='/',ruHref='/ru/';

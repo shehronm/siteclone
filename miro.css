@@ -153,6 +153,7 @@ html[lang="ru"] button.text-theme-bg\/65{min-height:44px;display:inline-flex;ali
 /* Phone header: treat the header as a purpose-built mobile composition.
    Logo + language occupy the left half, menu owns the right half. */
 @media(max-width:430px){
+  header{grid-template-columns:var(--site-header-height,60px) minmax(0,1fr)!important}
   header>div:first-child>div:last-child{display:none!important}
   .miro-lang-switch{
     right:50%;
@@ -310,4 +311,127 @@ header a[href*="#"]{min-height:44px;display:inline-flex;align-items:center}
 }
 @media(min-width:431px) and (max-width:1023px){
   header .text-caption-20{font-size:11px!important;line-height:1.2!important}
+}
+
+
+/* ===== Client QA hotfixes — 2026-09-22 ===== */
+/* Hide the injected EN/RU switch on phones and tablets so it never appears over
+   content or during the initial loading state. The desktop switch remains. */
+@media (max-width: 1023px){
+  .miro-lang-switch{display:none !important}
+  header button[aria-controls][aria-expanded]{padding-left:16px !important;padding-right:16px !important}
+}
+
+/* Russian mono list items were clipping at the top on several devices.
+   Give the line box more air and keep the type visually aligned with the site. */
+[data-page-builder-section="insightsSection"] li.font-mono.text-caption-20{
+  align-items:flex-start;
+  overflow:visible;
+  padding-block:0.08em;
+}
+[data-page-builder-section="insightsSection"] li.font-mono.text-caption-20 > div{
+  line-height:1.18;
+  padding-top:0.08em;
+}
+html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-caption-20{
+  line-height:1.18;
+}
+html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-caption-20 > div{
+  overflow:visible;
+  text-wrap:pretty;
+}
+@media (max-width: 1023px){
+  html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-caption-20{
+    font-size:clamp(12.5px,2.2vw,15px);
+    line-height:1.22;
+  }
+  html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-caption-20 > div{
+    padding-top:0.1em;
+  }
+}
+
+/* Footer CTA copy: make it sound warmer and more action-oriented. */
+html[lang="ru"] footer .text-headline-10{line-height:1.08}
+
+
+/* ===== Client mobile/tablet correction v2 — 2026-09-22 ===== */
+/* Never show the injected language switch on phone/tablet/small-laptop layouts.
+   bilingual.js also skips creating it below 1200px; this rule prevents any flash. */
+@media (max-width:1199px){
+  .miro-lang-switch{display:none!important}
+}
+
+/* Project case modals: the old close X sat on top of the hero image. On phone/tablet
+   reserve a real top bar and turn the same close control into a clear Back action. */
+@media (max-width:1199px){
+  [data-modal][role="dialog"]::before{
+    content:"";
+    position:absolute;
+    inset:0 0 auto 0;
+    height:56px;
+    z-index:2;
+    background:var(--theme-bg,#fff);
+    color:var(--theme-fg,#111);
+    border-bottom:1px solid currentColor;
+    pointer-events:none;
+  }
+  [data-modal][role="dialog"] > button[type="button"]{
+    position:absolute!important;
+    top:0!important;
+    left:0!important;
+    z-index:4!important;
+    width:auto!important;
+    min-width:112px!important;
+    height:56px!important;
+    min-height:56px!important;
+    padding:0 18px!important;
+    transform:none!important;
+    background:var(--theme-bg,#fff)!important;
+    color:var(--theme-fg,#111)!important;
+    border-right:1px solid currentColor!important;
+  }
+  [data-modal][role="dialog"] > button[type="button"] > *{display:none!important}
+  [data-modal][role="dialog"] > button[type="button"]::before{
+    content:"← Back";
+    display:block;
+    font-family:var(--font-sans),Arial,sans-serif;
+    font-size:15px;
+    line-height:1;
+    letter-spacing:-.02em;
+    white-space:nowrap;
+  }
+  html[lang="ru"] [data-modal][role="dialog"] > button[type="button"]::before{content:"← Назад"}
+  [data-modal][role="dialog"] > .custom-scrollbar{
+    position:absolute!important;
+    inset:56px 0 0 0!important;
+    width:100%!important;
+    height:auto!important;
+    margin:0!important;
+  }
+}
+
+/* The Cyrillic capability list used a 14px mono face with line-height:1 and forced
+   uppercase, which visually clipped ascenders and made neighbouring lines look uneven.
+   Keep the list structure/bullets, but use the site's normal sans typography. */
+html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-caption-20{
+  font-family:var(--font-sans),Arial,sans-serif!important;
+  font-size:15px!important;
+  font-weight:450!important;
+  line-height:1.32!important;
+  letter-spacing:-.02em!important;
+  text-transform:none!important;
+  padding-block:3px!important;
+  overflow:visible!important;
+}
+html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-caption-20 > div{
+  line-height:inherit!important;
+  padding-top:0!important;
+  overflow:visible!important;
+  text-wrap:pretty;
+}
+@media (max-width:1199px){
+  html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-caption-20{
+    font-size:16px!important;
+    line-height:1.34!important;
+  }
 }

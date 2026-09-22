@@ -114,3 +114,17 @@ input[type=range]{min-height:44px}
 
 /* Measured desktop touch cleanup: short nav labels still need a 44px wide hit box. */
 .page-nav a{min-width:44px;justify-content:center}
+
+
+/* ===== Client QA hotfixes — 2026-09-22 ===== */
+@media (max-width: 1023px){
+  .miro-lang-switch{display:none !important}
+  .demo-bar{padding-right:var(--pad) !important}
+}
+
+
+/* ===== Client mobile/tablet language cleanup v2 — 2026-09-22 ===== */
+@media (max-width:1199px){
+  .miro-lang-switch{display:none!important}
+  .demo-bar{padding-right:var(--pad)!important}
+}
