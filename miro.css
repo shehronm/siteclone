@@ -136,3 +136,178 @@ html[lang="ru"] [data-page-builder-section="statsSection"] .text-body-30{
     line-height:1.15;
   }
 }
+
+/* ===== Stage 2 responsive/mobile refinement — 2026-09-22 ===== */
+/* Keep the generated Next snapshot intact. All responsive corrections live in this
+   explicit override layer so they can later be moved back into the source project. */
+
+/* Interactive controls: preserve the visual language while giving controls a real hit area. */
+button.h-36{height:auto;min-height:44px}
+header button[title="Toggle theme"],
+header button[title="Переключить тему"]{min-width:44px;min-height:44px}
+header button[title="Toggle theme"] svg,
+header button[title="Переключить тему"] svg{pointer-events:none}
+html[lang="en"] button.text-theme-bg\/65,
+html[lang="ru"] button.text-theme-bg\/65{min-height:44px;display:inline-flex;align-items:center}
+
+/* Phone header: treat the header as a purpose-built mobile composition.
+   Logo + language occupy the left half, menu owns the right half. */
+@media(max-width:430px){
+  header>div:first-child>div:last-child{display:none!important}
+  .miro-lang-switch{
+    right:50%;
+    top:0;
+    height:var(--site-header-height,60px);
+    border-top:0;
+    border-bottom:0;
+    border-right:0;
+    background:var(--theme-bg,#fff);
+  }
+  .miro-lang-switch a{min-width:44px;padding:0 8px;font-size:11px}
+  header button[aria-controls][aria-expanded]{padding-left:16px;padding-right:16px}
+}
+
+/* Small tablet: retain the descriptor, but language/menu controls must not compete. */
+@media(min-width:431px) and (max-width:1023px){
+  .miro-lang-switch{height:var(--site-header-height,60px)}
+  .miro-lang-switch a{min-width:44px;padding:0 8px}
+  header button[aria-controls][aria-expanded]{padding-right:104px}
+}
+
+/* Tablet is a separate layout, not a stretched phone. */
+@media(min-width:600px) and (max-width:1023px){
+  /* About: remove the phone-only dramatic blank lead-in and place capability blocks in one row. */
+  #about>div:first-child>div:nth-child(2){padding-top:64px!important;padding-bottom:64px!important}
+  #about>div:nth-child(2)>div{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-template-rows:none!important;
+  }
+  #about>div:nth-child(2)>div>div{
+    position:relative!important;
+    inset:auto!important;
+    grid-column:auto!important;
+    grid-row:auto!important;
+    min-height:240px!important;
+    margin:0!important;
+    border-top:1px solid currentColor;
+  }
+
+  /* Expertise: tablet gets a readable two-column information row per capability. */
+  #expertise>.grid>div:first-child{gap:40px!important;padding-top:48px!important;padding-bottom:48px!important}
+  #expertise>.grid>div:first-child>div:last-child{gap:40px!important;width:min(100%,520px);margin-left:auto}
+  #expertise>.grid>.divide-y>.grid{
+    grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr)!important;
+    gap:32px!important;
+    padding:32px 20px!important;
+  }
+  #expertise>.grid>.divide-y>.grid>div{gap:24px!important}
+
+  /* Team: 2×2 tablet gallery instead of four full-width portrait screens. */
+  #team>div[id]{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:1px!important;
+    margin-top:0!important;
+    margin-bottom:0!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+    overflow:visible!important;
+  }
+  #team>div[id]>div{min-width:0!important;width:auto!important;flex-basis:auto!important}
+
+  /* Full-viewport decorative banners are excessive on tablet. */
+  [data-page-builder-section="bannerSection"]{min-height:clamp(480px,70svh,720px)!important}
+}
+
+/* 768–1023 can support a real split work section without waiting for desktop. */
+@media(min-width:768px) and (max-width:1023px){
+  #clients>.grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important}
+  #clients>.grid>div:first-child{order:1!important}
+  #clients>.grid>div:nth-child(2){order:2!important}
+}
+
+/* On phone, avoid accidental one-line micro copy in the footer/action areas. */
+@media(max-width:430px){
+  html[lang="ru"] [data-page-builder-section] .font-mono.text-caption-10,
+  html[lang="en"] [data-page-builder-section] .font-mono.text-caption-10{line-height:1.3}
+}
+
+/* Stage 2 follow-up: 1024px is still tablet/small-laptop for this content. */
+.miro-lang-switch a{min-width:44px}
+header a[href*="#"]{min-height:44px;display:inline-flex;align-items:center}
+
+@media(min-width:1024px) and (max-width:1199px){
+  /* The original lg breakpoint activates cinematic desktop spacing too early. */
+  #about>div:first-child{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr)!important}
+  #about>div:first-child>div:nth-child(2){padding-top:64px!important;padding-bottom:72px!important}
+  #about>div:nth-child(2)>div{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-template-rows:none!important;
+  }
+  #about>div:nth-child(2)>div>div{
+    position:relative!important;
+    inset:auto!important;
+    grid-column:auto!important;
+    grid-row:auto!important;
+    min-height:260px!important;
+    margin:0!important;
+    border-top:1px solid currentColor;
+  }
+
+  #expertise>.grid>div:first-child{gap:40px!important;padding:48px 24px!important}
+  #expertise>.grid>div:first-child>div:last-child{gap:40px!important;width:min(100%,560px);margin-left:auto}
+  #expertise>.grid>.divide-y>.grid{
+    min-height:auto!important;
+    grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr)!important;
+    gap:36px!important;
+    padding:36px 24px!important;
+  }
+  #expertise>.grid>.divide-y>.grid>div{gap:24px!important}
+
+  /* Keep the team as a static 2×2 gallery at small-laptop width; horizontal snap starts later. */
+  #team>div[id]{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:1px!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:visible!important;
+  }
+  #team>div[id]>div{min-width:0!important;width:auto!important;flex-basis:auto!important}
+
+  [data-page-builder-section="bannerSection"]{min-height:clamp(560px,72svh,760px)!important}
+}
+
+/* At exactly lg/small-laptop, the original horizontal team rail is more compact than a 2×2 wall. */
+@media(min-width:1024px) and (max-width:1199px){
+  #team>div[id]{
+    display:flex!important;
+    flex-direction:row!important;
+    gap:1px!important;
+    margin-top:-40vh!important;
+    margin-bottom:-20vh!important;
+    padding-top:20vh!important;
+    padding-bottom:20vh!important;
+    overflow-x:auto!important;
+    overflow-y:clip!important;
+  }
+  #team>div[id]>div{flex:0 0 var(--card-basis)!important;width:auto!important}
+}
+
+/* ===== Stage 3 release-gate corrections — 2026-09-22 ===== */
+/* At the 600px tablet edge the three-column capability row leaves too little
+   content width for CRM at the inherited display size, creating 11px overflow. */
+@media(min-width:600px) and (max-width:1023px){
+  #about .text-digit-20{font-size:clamp(76px,11.5vw,100px)}
+}
+
+/* The descriptor is supporting information, but 9px is below the readable
+   threshold once it becomes visible again above the phone header. */
+@media(min-width:431px) and (max-width:1023px){
+  header .text-caption-20{font-size:11px;line-height:1.2}
+}
+@media(min-width:431px) and (max-width:1023px){
+  header .text-caption-20{font-size:11px!important;line-height:1.2!important}
+}

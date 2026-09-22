@@ -29,3 +29,88 @@ p,span,small,dd,a,button,label,strong,output,legend{overflow-wrap:anywhere}
 .miro-lang-switch a{display:flex;align-items:center;justify-content:center;min-width:38px;height:100%;padding:0 8px}.miro-lang-switch a+a{border-left:1px solid currentColor}.miro-lang-switch a[aria-current=page]{background:var(--ink);color:var(--paper);pointer-events:none}
 html[lang=ru] h1,html[lang=ru] h2,html[lang=ru] h3{hyphens:none;overflow-wrap:normal}html[lang=ru] .button,html[lang=ru] .header-cta{white-space:normal}
 @media(max-width:700px){.miro-lang-switch a{min-width:34px;padding:0 6px}.demo-header{gap:14px}.header-cta{gap:12px}.page-nav{gap:14px}}
+
+/* ===== Stage 2 mobile/touch refinement — 2026-09-22 ===== */
+/* A consistent 44px minimum interaction area without visually inflating the UI. */
+.demo-bar>a,.demo-bar nav a,.demo-footer>a:last-child,summary,.check{min-height:44px}
+.miro-lang-switch{height:44px;top:4px}
+.miro-lang-switch a{min-width:44px;padding:0 8px}
+summary{align-items:center;padding-block:4px}
+.check{padding-block:8px;cursor:pointer}
+.check input[type=checkbox]{width:22px;height:22px;min-height:22px;flex:0 0 22px}
+input[type=range]{min-height:44px}
+
+@media(max-width:700px){
+  .demo-bar{min-height:54px;padding-top:7px;padding-bottom:7px;padding-right:calc(var(--pad) + 100px)}
+  .demo-bar>span{font-size:.75rem;line-height:1.35;max-width:32ch}
+  .miro-lang-switch{top:5px;height:44px}
+  .miro-lang-switch a{min-width:44px}
+  details{padding:18px 0}
+  summary{font-size:1.0625rem}
+}
+
+/* FORMA catalogue: on phones each residence becomes a compact horizontal card.
+   All information remains present; only the composition changes. */
+@media(max-width:420px){
+  .homes-section{padding-block:56px}
+  .home-filters{gap:16px;padding-bottom:20px}
+  .results-count{margin:14px 0}
+  .home-grid{gap:12px}
+  .home-card{
+    display:grid;
+    grid-template-columns:minmax(0,108px) minmax(0,1fr);
+    grid-template-areas:
+      "head head"
+      "plan title"
+      "plan meta"
+      "foot foot";
+    gap:10px 14px;
+    padding:16px;
+  }
+  .home-card-head{grid-area:head}
+  .home-card .plan{grid-area:plan;height:112px;margin:0;align-self:center}
+  .home-card h3{grid-area:title;font-size:1.25rem;line-height:1.12;align-self:end}
+  .home-card>small{grid-area:meta;font-size:.8125rem;align-self:start}
+  .home-card-foot{grid-area:foot;margin-top:2px;padding-top:12px;flex-direction:row;align-items:center}
+  .home-card-foot strong{font-size:1rem}
+  .home-card-foot button{min-height:44px}
+}
+
+@media(min-width:421px) and (max-width:700px){
+  .home-card{padding:14px;gap:12px}
+  .home-card .plan{height:145px;margin:4px 0}
+  .home-card h3{font-size:1.35rem}
+  .home-card-foot{padding-top:12px}
+}
+
+/* Stage 2 touch-target cleanup after measured QA. */
+.brand{min-height:44px}
+.chips button{min-width:44px}
+.miro-lang-switch{height:46px}
+.miro-lang-switch a{height:44px;min-height:44px}
+
+/* Most current phones can show two compact residence cards without sacrificing legibility. */
+@media(min-width:360px) and (max-width:420px){
+  .home-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .home-card{
+    display:flex;
+    flex-direction:column;
+    padding:12px;
+    gap:9px;
+  }
+  .home-card-head{min-height:44px;font-size:.75rem;align-items:center}
+  .home-card .plan{height:104px;margin:0}
+  .home-card h3{font-size:1.05rem;line-height:1.12}
+  .home-card>small{font-size:.75rem;line-height:1.35}
+  .home-card-foot{margin-top:auto;padding-top:9px;gap:4px;flex-direction:column;align-items:flex-start}
+  .home-card-foot button{min-height:44px}
+  .forma-image{height:310px}
+}
+
+@media(min-width:421px) and (max-width:700px){
+  .home-card .plan{height:112px}
+  .home-card{gap:10px}
+}
+
+/* Measured desktop touch cleanup: short nav labels still need a 44px wide hit box. */
+.page-nav a{min-width:44px;justify-content:center}
