@@ -1,0 +1,7 @@
+MIRO DIGITAL — asset/source notes
+
+This portfolio build contains selected real client work and capability visuals used by MIRO DIGITAL. Project names, brand marks and people names are preserved as provided in the source material.
+
+Interactive project pages are portfolio previews. Their local forms and booking/payment controls demonstrate the interface and do not transmit a live request or payment from this static build.
+
+English and Russian versions are maintained as separate pages and can be switched with the EN/RU control.
