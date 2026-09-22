@@ -40,3 +40,33 @@ html[lang=ru] [data-page-builder-section=serviceListSection] h3,html[lang=ru] [d
 html[lang=ru] .font-mono.text-caption-10{overflow-wrap:normal;word-break:normal;hyphens:none}
 @media(max-width:600px){html[lang=ru] .miro-case-copy h2{font-size:44px}}
 @media(max-width:359px){[data-page-builder-section=heroSection] .inset-shadow-border-t .text-headline-50{font-size:44px}}
+
+
+/* 2026-09 mobile RU typography pass: English layout is the composition reference. */
+@media(max-width:430px){
+  html[lang=ru] [data-page-builder-section="insightsSection"] h3{
+    font-size:22px;
+    line-height:1.08;
+    text-wrap:balance;
+  }
+  html[lang=ru] [data-page-builder-section="insightsSection"] li.font-mono.text-caption-20{
+    font-size:13px;
+    line-height:1.22;
+    align-items:flex-start;
+  }
+  html[lang=ru] [data-page-builder-section="insightsSection"] ul.flex.list-none.flex-col{
+    gap:10px;
+  }
+  html[lang=ru] [data-page-builder-section="insightsSection"] li.font-mono.text-caption-20 > div{
+    overflow-wrap:normal;
+    word-break:normal;
+    hyphens:none;
+  }
+  html[lang=ru] [data-page-builder-section="insightsSection"] div[data-text="true"]{
+    line-height:1.35;
+  }
+}
+@media(max-width:359px){
+  html[lang=ru] [data-page-builder-section="insightsSection"] h3{font-size:21px}
+  html[lang=ru] [data-page-builder-section="insightsSection"] li.font-mono.text-caption-20{font-size:12.5px;line-height:1.24}
+}
