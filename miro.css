@@ -17,6 +17,8 @@
 .miro-person-skills{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0}
 .miro-person-skills li{border:1px solid;padding:10px 12px;font:12px var(--font-mono);text-transform:uppercase}
 .miro-copy-brief{border:1px solid currentColor;padding:16px;text-align:left;cursor:pointer}
+.miro-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+.miro-case-context{border-top:1px solid currentColor;margin-top:24px;padding-top:16px}
 form input,form textarea,form select{border-radius:0;background:transparent}
 form input:focus,form textarea:focus,form select:focus{box-shadow:0 2px #c7ffd7}
 header>div:first-child>div:last-child>span{font-size:11px;letter-spacing:.02em;text-transform:uppercase}
@@ -27,14 +29,6 @@ header>div:first-child>div:last-child>span{font-size:11px;letter-spacing:.02em;t
 @media(max-width:600px){.miro-case-copy{gap:22px;padding:32px 16px}.miro-case-copy h2{font-size:48px}.miro-case-image img{height:250px}.miro-facts{grid-template-columns:1fr;gap:8px}.miro-facts dd{margin-bottom:16px}header>div:first-child>div:last-child{padding-left:10px;padding-right:10px}header>div:first-child>div:last-child>span{font-size:9px;line-height:1.2;display:block;max-width:80px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.miro-action{transition:none}}
 
-/* Bilingual navigation + localization QA fixes */
-/* The switch is visually integrated into the sticky header, so it never covers page content. */
-.miro-lang-switch{position:fixed;top:0;right:200px;z-index:50;display:flex;height:var(--site-header-height,60px);border-inline:1px solid currentColor;background:var(--theme-bg,#fff);color:var(--theme-fg,#111);font:500 11px/1 Arial,sans-serif;letter-spacing:.06em}
-.miro-lang-switch a{display:flex;align-items:center;justify-content:center;min-width:38px;height:100%;padding:0 8px;text-decoration:none}
-.miro-lang-switch a+a{border-left:1px solid currentColor}.miro-lang-switch a[aria-current=page]{background:#111;color:#fff;pointer-events:none}
-/* Reserve the same space in the React-rendered header without modifying its DOM. */
-@media(min-width:1024px){header>div:nth-child(2)>div:first-child{padding-right:96px}}
-@media(max-width:1023px){.miro-lang-switch{right:0}.miro-lang-switch a{min-width:30px;padding:0 5px}header button[aria-controls][aria-expanded]{padding-right:72px}}
 html[lang=ru] .miro-action{white-space:normal;line-height:1.25}
 html[lang=ru] [data-page-builder-section=serviceListSection] h3,html[lang=ru] [data-page-builder-section=servicesSection] h3{text-wrap:balance}
 html[lang=ru] .font-mono.text-caption-10{overflow-wrap:normal;word-break:normal;hyphens:none}
@@ -150,30 +144,16 @@ header button[title="Переключить тему"] svg{pointer-events:none}
 html[lang="en"] button.text-theme-bg\/65,
 html[lang="ru"] button.text-theme-bg\/65{min-height:44px;display:inline-flex;align-items:center}
 
-/* Phone header: treat the header as a purpose-built mobile composition.
-   Logo + language occupy the left half, menu owns the right half. */
-@media(max-width:430px){
+
+/* Compact header: phones/tablets show only the M logo and the Menu control. */
+@media(max-width:1023px){
   header{grid-template-columns:var(--site-header-height,60px) minmax(0,1fr)!important}
-  header>div:first-child>div:last-child{display:none!important}
-  .miro-lang-switch{
-    right:50%;
-    top:0;
-    height:var(--site-header-height,60px);
-    border-top:0;
-    border-bottom:0;
-    border-right:0;
-    background:var(--theme-bg,#fff);
-  }
-  .miro-lang-switch a{min-width:44px;padding:0 8px;font-size:11px}
-  header button[aria-controls][aria-expanded]{padding-left:16px;padding-right:16px}
+  header>div:first-child{min-width:var(--site-header-height,60px)!important;border-right:1px solid currentColor!important}
+  header>div:first-child>div{display:none!important}
+  header>div.block.size-full.lg\:hidden{grid-column:2!important}
+  header>div.block.size-full.lg\:hidden>button{padding-left:20px!important;padding-right:20px!important}
 }
 
-/* Small tablet: retain the descriptor, but language/menu controls must not compete. */
-@media(min-width:431px) and (max-width:1023px){
-  .miro-lang-switch{height:var(--site-header-height,60px)}
-  .miro-lang-switch a{min-width:44px;padding:0 8px}
-  header button[aria-controls][aria-expanded]{padding-right:104px}
-}
 
 /* Tablet is a separate layout, not a stretched phone. */
 @media(min-width:600px) and (max-width:1023px){
@@ -235,7 +215,6 @@ html[lang="ru"] button.text-theme-bg\/65{min-height:44px;display:inline-flex;ali
 }
 
 /* Stage 2 follow-up: 1024px is still tablet/small-laptop for this content. */
-.miro-lang-switch a{min-width:44px}
 header a[href*="#"]{min-height:44px;display:inline-flex;align-items:center}
 
 @media(min-width:1024px) and (max-width:1199px){
@@ -314,13 +293,6 @@ header a[href*="#"]{min-height:44px;display:inline-flex;align-items:center}
 }
 
 
-/* ===== Client QA hotfixes — 2026-09-22 ===== */
-/* Hide the injected EN/RU switch on phones and tablets so it never appears over
-   content or during the initial loading state. The desktop switch remains. */
-@media (max-width: 1023px){
-  .miro-lang-switch{display:none !important}
-  header button[aria-controls][aria-expanded]{padding-left:16px !important;padding-right:16px !important}
-}
 
 /* Russian mono list items were clipping at the top on several devices.
    Give the line box more air and keep the type visually aligned with the site. */
@@ -354,61 +326,6 @@ html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-
 html[lang="ru"] footer .text-headline-10{line-height:1.08}
 
 
-/* ===== Client mobile/tablet correction v2 — 2026-09-22 ===== */
-/* Never show the injected language switch on phone/tablet/small-laptop layouts.
-   bilingual.js also skips creating it below 1200px; this rule prevents any flash. */
-@media (max-width:1199px){
-  .miro-lang-switch{display:none!important}
-}
-
-/* Project case modals: the old close X sat on top of the hero image. On phone/tablet
-   reserve a real top bar and turn the same close control into a clear Back action. */
-@media (max-width:1199px){
-  [data-modal][role="dialog"]::before{
-    content:"";
-    position:absolute;
-    inset:0 0 auto 0;
-    height:56px;
-    z-index:2;
-    background:var(--theme-bg,#fff);
-    color:var(--theme-fg,#111);
-    border-bottom:1px solid currentColor;
-    pointer-events:none;
-  }
-  [data-modal][role="dialog"] > button[type="button"]{
-    position:absolute!important;
-    top:0!important;
-    left:0!important;
-    z-index:4!important;
-    width:auto!important;
-    min-width:112px!important;
-    height:56px!important;
-    min-height:56px!important;
-    padding:0 18px!important;
-    transform:none!important;
-    background:var(--theme-bg,#fff)!important;
-    color:var(--theme-fg,#111)!important;
-    border-right:1px solid currentColor!important;
-  }
-  [data-modal][role="dialog"] > button[type="button"] > *{display:none!important}
-  [data-modal][role="dialog"] > button[type="button"]::before{
-    content:"← Back";
-    display:block;
-    font-family:var(--font-sans),Arial,sans-serif;
-    font-size:15px;
-    line-height:1;
-    letter-spacing:-.02em;
-    white-space:nowrap;
-  }
-  html[lang="ru"] [data-modal][role="dialog"] > button[type="button"]::before{content:"← Назад"}
-  [data-modal][role="dialog"] > .custom-scrollbar{
-    position:absolute!important;
-    inset:56px 0 0 0!important;
-    width:100%!important;
-    height:auto!important;
-    margin:0!important;
-  }
-}
 
 /* The Cyrillic capability list used a 14px mono face with line-height:1 and forced
    uppercase, which visually clipped ascenders and made neighbouring lines look uneven.
@@ -434,4 +351,122 @@ html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-
     font-size:16px!important;
     line-height:1.34!important;
   }
+}
+
+
+/* ===== Stabilization pass v5 — clean header/dialog behavior ===== */
+/* Language switch is part of the wide desktop header. It is never fixed and
+   therefore cannot appear over the loader, project content or dialogs. */
+.miro-lang-switch{
+  position:static!important;
+  inset:auto!important;
+  z-index:auto!important;
+  display:flex;
+  flex:0 0 auto;
+  height:var(--site-header-height,60px)!important;
+  border:0!important;
+  border-left:1px solid currentColor!important;
+  border-right:1px solid currentColor!important;
+  background:var(--color-theme-bg,var(--theme-bg,#fff))!important;
+  color:var(--color-theme-fg,var(--theme-fg,#111))!important;
+  font:500 11px/1 Arial,sans-serif!important;
+  letter-spacing:.06em!important;
+}
+.miro-lang-switch a{display:flex!important;align-items:center!important;justify-content:center!important;min-width:56px!important;height:100%!important;padding:0 12px!important;text-decoration:none!important}
+.miro-lang-switch a+a{border-left:1px solid currentColor!important}
+.miro-lang-switch a[aria-current=page]{background:var(--color-theme-fg,var(--theme-fg,#111))!important;color:var(--color-theme-bg,var(--theme-bg,#fff))!important;pointer-events:none}
+@media(max-width:1199px){.miro-lang-switch{display:none!important}}
+@media(min-width:1200px){
+  header>div:nth-child(2)>div:first-child{padding-right:20px!important}
+  header>div:nth-child(2) ul{flex-wrap:nowrap!important}
+}
+
+/* All slide-over dialogs use an internal top bar. The old floating X outside
+   the panel is removed, so imagery and form content always begin below it. */
+[data-modal][role="dialog"]::before{display:none!important;content:none!important}
+[data-modal][role="dialog"] > button[type="button"]{
+  position:absolute!important;
+  top:0!important;left:0!important;right:0!important;
+  z-index:8!important;
+  width:100%!important;min-width:0!important;
+  height:56px!important;min-height:56px!important;
+  padding:0 20px!important;
+  transform:none!important;
+  justify-content:flex-start!important;
+  background:var(--color-theme-bg,var(--theme-bg,#fff))!important;
+  color:var(--color-theme-fg,var(--theme-fg,#111))!important;
+  border:0!important;border-bottom:1px solid currentColor!important;
+}
+[data-modal][role="dialog"] > button[type="button"] > *{display:none!important}
+[data-modal][role="dialog"] > button[type="button"]::before{content:"← Back";display:block;font-family:var(--font-sans),Arial,sans-serif;font-size:15px;line-height:1;letter-spacing:-.02em;white-space:nowrap}
+html[lang="ru"] [data-modal][role="dialog"] > button[type="button"]::before{content:"← Назад"}
+[data-modal][role="dialog"] > .custom-scrollbar{position:absolute!important;inset:56px 0 0 0!important;width:100%!important;height:auto!important;margin:0!important}
+
+
+/* v5.2 — language control sits beside the desktop theme toggle. */
+@media(min-width:1200px){
+  .miro-lang-switch--header{
+    height:44px!important;
+    align-self:center!important;
+    border:1px solid currentColor!important;
+    flex-shrink:0!important;
+  }
+  .miro-lang-switch--header a{
+    min-width:44px!important;
+    height:42px!important;
+    padding:0 9px!important;
+    font-size:11px!important;
+  }
+  header>div:nth-child(2)>div:first-child{
+    gap:12px!important;
+    padding-right:12px!important;
+  }
+  header>div:nth-child(2)>div:first-child>div:first-child ul{
+    flex-wrap:nowrap!important;
+  }
+}
+@media(max-width:1199px){
+  .miro-lang-switch{display:none!important}
+}
+
+/* v5.3 — final deterministic language placement beside the real theme toggle. */
+@media (min-width:1200px){
+  header .miro-lang-switch--header{
+    position:static!important;
+    display:flex!important;
+    align-self:center!important;
+    flex:0 0 auto!important;
+    width:auto!important;
+    height:44px!important;
+    margin:0!important;
+    border:1px solid currentColor!important;
+    background:var(--color-theme-bg,var(--theme-bg,#fff))!important;
+    color:var(--color-theme-fg,var(--theme-fg,#111))!important;
+  }
+  header .miro-lang-switch--header a{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:auto!important;
+    min-width:46px!important;
+    height:42px!important;
+    padding:0 10px!important;
+    font-family:Arial,sans-serif!important;
+    font-size:12px!important;
+    line-height:1!important;
+    letter-spacing:.04em!important;
+    text-decoration:none!important;
+  }
+  header .miro-lang-switch--header a+a{border-left:1px solid currentColor!important}
+  header .miro-lang-switch--header a[aria-current="page"]{
+    background:var(--color-theme-fg,var(--theme-fg,#111))!important;
+    color:var(--color-theme-bg,var(--theme-bg,#fff))!important;
+  }
+}
+@media (max-width:1199px){header .miro-lang-switch--header{display:none!important}}
+
+/* v5.4: let the desktop controls keep their natural width before the two
+   header columns have enough room to be equal (notably 1280px in Russian). */
+@media (min-width:1280px){
+  header{grid-template-columns:minmax(0,1fr) minmax(max-content,1fr)}
 }

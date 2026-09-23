@@ -7,21 +7,38 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
   const [email, setEmail] = React.useState('');
   const [topic, setTopic] = React.useState('Website or digital product');
   const [message, setMessage] = React.useState('');
-  const [opened, setOpened] = React.useState(false);
+  const [sending, setSending] = React.useState(false);
+  const [sendStatus, setSendStatus] = React.useState('');
+  const [sendError, setSendError] = React.useState(false);
   const [copyStatus, setCopyStatus] = React.useState('');
   const address = 'shehronm@mail.com';
+  const ru = document.documentElement.lang === 'ru';
   const fieldClass = 'h-60 w-full border-b font-sans text-body-10 text-theme-bg outline-none';
   const labelClass = 'font-mono text-caption-10 uppercase text-theme-bg/65';
   const field = (label, input) => jsxs('label', { className: 'flex flex-col gap-8', children: [jsx('span', { className: labelClass, children: label }), input] });
   const options = ['Website or digital product', 'AI or automation', 'CRM or integration', 'Telegram service', 'Internal system', 'Let’s define it together'];
   const brief = () => 'Name: ' + name.trim() + '\nEmail: ' + email.trim() + '\nProject: ' + topic + '\n\n' + message.trim();
   return jsxs('form', {
-    onSubmit(event) {
+    async onSubmit(event) {
       event.preventDefault();
-      const subject = encodeURIComponent('A project for MIRO DIGITAL: ' + topic);
-      const body = encodeURIComponent(brief());
-      window.location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-      setOpened(true);
+      if (sending) return;
+      setSending(true);
+      setSendStatus('');
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name.trim(), email: email.trim(), topic, message: message.trim(), website: event.currentTarget.elements.website.value }),
+        });
+        if (!response.ok) throw new Error('Delivery failed');
+        setSendError(false);
+        setSendStatus(ru ? 'Заявка отправлена. Мы свяжемся с вами по указанной почте.' : 'Your enquiry was sent. We will contact you by email.');
+      } catch {
+        setSendError(true);
+        setSendStatus(ru ? 'Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.' : 'We could not send your enquiry. Please try again or message us on Telegram.');
+      } finally {
+        setSending(false);
+      }
     },
     className: 'relative flex min-h-400 flex-col bg-theme-fg text-theme-bg',
     children: [
@@ -30,14 +47,15 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
         field('Your name', jsx('input', { 'aria-label':'Your name', type: 'text', name: 'name', required: true, autoComplete: 'name', maxLength: 100, value: name, onChange: event => setName(event.target.value), placeholder: 'How should we address you?', className: fieldClass })),
         field('Email', jsx('input', { 'aria-label':'Email', type: 'email', name: 'email', required: true, autoComplete: 'email', maxLength: 254, value: email, onChange: event => setEmail(event.target.value), placeholder: 'you@company.com', className: fieldClass })),
         field('What do you need?', jsx('select', { 'aria-label':'What do you need?', name: 'topic', value: topic, onChange: event => setTopic(event.target.value), className: fieldClass, children: options.map(option => jsx('option', { value: option, style: { color: '#232323', backgroundColor: '#ffffff' }, children: option }, option)) })),
-        field('About the project', jsx('textarea', { 'aria-label':'About the project', name: 'message', required: true, rows: 5, maxLength: 2000, value: message, onChange: event => setMessage(event.target.value), placeholder: 'Share your goals, timeline and anything we should know', className: 'w-full border-b py-12 font-sans text-body-10 text-theme-bg outline-none' })),
+        field('About the project', jsx('textarea', { 'aria-label':'About the project', name: 'message', required: true, minLength: 10, rows: 5, maxLength: 2000, value: message, onChange: event => setMessage(event.target.value), placeholder: 'Share your goals, timeline and anything we should know', className: 'w-full border-b py-12 font-sans text-body-10 text-theme-bg outline-none' })),
+        jsx('input', { type: 'text', name: 'website', tabIndex: -1, autoComplete: 'off', 'aria-hidden': 'true', className: 'miro-honeypot' }),
       ] }),
       jsxs('footer', { className: 'flex flex-col gap-16 px-12 pt-20 pb-20 lg:px-20', children: [
-        jsx('p', { className: 'text-caption-20 text-theme-bg/65', children: 'This opens a draft in your email app. Send that email to share your enquiry with us.' }),
-        jsx('button', { type: 'submit', className: 'relative isolate inline-flex h-60 w-full items-center justify-between bg-mint px-20 font-sans text-body-10 text-black', children: 'Compose email →' }),
+        jsx('p', { className: 'text-caption-20 text-theme-bg/65', children: ru ? 'Отправьте заявку — мы получим её и ответим вам по почте.' : 'Send your enquiry directly to our team. We will respond by email.' }),
+        jsx('button', { type: 'submit', disabled: sending, className: 'relative isolate inline-flex h-60 w-full items-center justify-between bg-mint px-20 font-sans text-body-10 text-black disabled:opacity-60', children: sending ? (ru ? 'Отправляем…' : 'Sending…') : (ru ? 'Отправить заявку →' : 'Send enquiry →') }),
+        sendStatus ? jsx('p', { role: sendError ? 'alert' : 'status', 'aria-live': 'polite', className: 'text-caption-20', children: sendStatus }) : null,
         jsx('button', { type: 'button', className: 'miro-copy-brief', onClick: async () => { try { await navigator.clipboard.writeText(brief()); setCopyStatus('Brief copied. You can paste it into email or Telegram.'); } catch { setCopyStatus('Copy is unavailable in this browser. Select your text to copy it.'); } }, children: 'Copy brief' }),
         copyStatus ? jsx('p', { role: 'status', className: 'text-caption-20', children: copyStatus }) : null,
-        opened ? jsx('p', { role: 'status', className: 'text-caption-20', children: 'Nothing has been sent automatically. Check your email app and send the draft when you are ready.' }) : null,
         jsxs('p', { className: 'text-caption-20 text-theme-bg/65', children: ['Or email us directly: ', jsx('a', { href: 'mailto:' + address, className: 'underline', children: address })] }),
       ] }),
     ],

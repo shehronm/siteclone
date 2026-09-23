@@ -19,5 +19,24 @@ Object.assign(M,{
 "Booking system":"Система бронирования",
 "Implemented system":"Реализованная система"
 });
+Object.assign(M,{
+"Tell us about your project":"Расскажите о вашем проекте",
+"YOUR NAME":"ВАШЕ ИМЯ",
+"Your name":"Ваше имя",
+"How should we address you?":"Как к вам обращаться?",
+"EMAIL":"ПОЧТА",
+"WHAT DO YOU NEED?":"ЧТО ВАМ НУЖНО?",
+"What do you need?":"Что вам нужно?",
+"Tell us what you need":"Опишите задачу",
+"YOUR MESSAGE":"ВАША ЗАДАЧА",
+"Message":"Сообщение",
+"WEBSITE / LINK":"САЙТ / ССЫЛКА",
+"Website / link":"Сайт / ссылка",
+"BUDGET":"БЮДЖЕТ",
+"TIMELINE":"СРОКИ",
+"Send brief":"Подготовить письмо",
+"Open email":"Открыть почту",
+"Submit":"Продолжить"
+});
 const attrs=['aria-label','alt','title','placeholder'];
 const translate=root=>{const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const r=n.nodeValue,t=r.trim(),k=t.replace(/\s+/g,' ');if(M[t]||M[k])n.nodeValue=r.replace(t,M[t]||M[k]);}if(root.nodeType===1){for(const a of attrs){const v=root.getAttribute?.(a);if(v&&M[v])root.setAttribute(a,M[v]);}}root.querySelectorAll?.('*').forEach(el=>{for(const a of attrs){const v=el.getAttribute(a);if(v&&M[v])el.setAttribute(a,M[v]);}})};const run=()=>translate(document.body);document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run,{once:true}):run();new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)translate(n);else if(n.nodeType===3){const r=n.nodeValue,t=r.trim(),k=t.replace(/\s+/g,' ');if(M[t]||M[k])n.nodeValue=r.replace(t,M[t]||M[k]);}}))).observe(document.documentElement,{childList:true,subtree:true});})();
