@@ -11,52 +11,76 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
   const [sendStatus, setSendStatus] = React.useState('');
   const [sendError, setSendError] = React.useState(false);
   const [copyStatus, setCopyStatus] = React.useState('');
+  const pending = React.useRef(false);
+  const [sentBrief, setSentBrief] = React.useState('');
   const address = 'shehronm@mail.com';
   const ru = document.documentElement.lang === 'ru';
+  const t = (en, russian) => ru ? russian : en;
   const fieldClass = 'h-60 w-full border-b font-sans text-body-10 text-theme-bg outline-none';
   const labelClass = 'font-mono text-caption-10 uppercase text-theme-bg/65';
   const field = (label, input) => jsxs('label', { className: 'flex flex-col gap-8', children: [jsx('span', { className: labelClass, children: label }), input] });
   const options = ['Website or digital product', 'AI or automation', 'CRM or integration', 'Telegram service', 'Internal system', 'Let’s define it together'];
+  const optionLabels = ['Сайт или цифровой продукт', 'AI или автоматизация', 'CRM или интеграция', 'Telegram-сервис', 'Внутренняя система', 'Определим вместе'];
   const brief = () => 'Name: ' + name.trim() + '\nEmail: ' + email.trim() + '\nProject: ' + topic + '\n\n' + message.trim();
   return jsxs('form', {
     async onSubmit(event) {
       event.preventDefault();
-      if (sending) return;
+      if (pending.current || sentBrief === brief()) return;
+      const form = event.currentTarget;
+      for (const [key, minimum] of [['name', 2], ['message', 10]]) {
+        const input = form.elements[key];
+        input.setCustomValidity(input.value.trim().length < minimum ? t('Please enter at least ' + minimum + ' characters.', 'Введите не менее ' + minimum + ' символов.') : '');
+      }
+      if (!form.reportValidity()) return;
+      const submittedBrief = brief();
+      pending.current = true;
       setSending(true);
       setSendStatus('');
+      setSendError(false);
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
       try {
         const response = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name.trim(), email: email.trim(), topic, message: message.trim(), website: event.currentTarget.elements.website.value }),
+          body: JSON.stringify({ name: name.trim(), email: email.trim(), topic, message: message.trim(), website: form.elements.website.value }),
+          signal: controller.signal,
         });
-        if (!response.ok) throw new Error('Delivery failed');
+        if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) throw new Error('Delivery failed');
+        const acknowledgement = await response.json();
+        if (acknowledgement.ok !== true) throw new Error('Delivery not acknowledged');
         setSendError(false);
+        setSentBrief(submittedBrief);
         setSendStatus(ru ? 'Заявка отправлена. Мы свяжемся с вами по указанной почте.' : 'Your enquiry was sent. We will contact you by email.');
       } catch {
         setSendError(true);
         setSendStatus(ru ? 'Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.' : 'We could not send your enquiry. Please try again or message us on Telegram.');
       } finally {
+        clearTimeout(timeout);
+        pending.current = false;
         setSending(false);
       }
     },
+    onInput(event) { event.target.setCustomValidity?.(''); setSendStatus(''); setCopyStatus(''); },
+    'aria-busy': sending,
     className: 'relative flex min-h-400 flex-col bg-theme-fg text-theme-bg',
     children: [
-      jsx('h2', { className: 'px-12 pt-20 text-headline-20 lg:px-20', children: 'Tell us about your project' }),
+      jsx('h2', { className: 'px-12 pt-20 text-headline-20 lg:px-20', children: t('Tell us about your project', 'Расскажите о вашем проекте') }),
       jsxs('div', { className: 'flex flex-1 flex-col gap-16 px-12 py-20 lg:px-20', children: [
-        field('Your name', jsx('input', { 'aria-label':'Your name', type: 'text', name: 'name', required: true, autoComplete: 'name', maxLength: 100, value: name, onChange: event => setName(event.target.value), placeholder: 'How should we address you?', className: fieldClass })),
-        field('Email', jsx('input', { 'aria-label':'Email', type: 'email', name: 'email', required: true, autoComplete: 'email', maxLength: 254, value: email, onChange: event => setEmail(event.target.value), placeholder: 'you@company.com', className: fieldClass })),
-        field('What do you need?', jsx('select', { 'aria-label':'What do you need?', name: 'topic', value: topic, onChange: event => setTopic(event.target.value), className: fieldClass, children: options.map(option => jsx('option', { value: option, style: { color: '#232323', backgroundColor: '#ffffff' }, children: option }, option)) })),
-        field('About the project', jsx('textarea', { 'aria-label':'About the project', name: 'message', required: true, minLength: 10, rows: 5, maxLength: 2000, value: message, onChange: event => setMessage(event.target.value), placeholder: 'Share your goals, timeline and anything we should know', className: 'w-full border-b py-12 font-sans text-body-10 text-theme-bg outline-none' })),
+        field(t('Your name', 'Ваше имя'), jsx('input', { 'aria-label':t('Your name','Ваше имя'), type: 'text', name: 'name', required: true, autoComplete: 'name', minLength: 2, maxLength: 100, disabled: sending, value: name, onChange: event => setName(event.target.value), placeholder: t('How should we address you?', 'Как к вам обращаться?'), className: fieldClass })),
+        field(t('Email','Почта'), jsx('input', { 'aria-label':t('Email','Почта'), type: 'email', name: 'email', required: true, autoComplete: 'email', maxLength: 254, disabled: sending, value: email, onChange: event => setEmail(event.target.value), placeholder: 'you@company.com', className: fieldClass })),
+        field(t('What do you need?', 'Что вам нужно?'), jsx('select', { 'aria-label':t('What do you need?', 'Что вам нужно?'), name: 'topic', disabled: sending, value: topic, onChange: event => { setTopic(event.target.value); setSendStatus(''); }, className: fieldClass, children: options.map((option, index) => jsx('option', { value: option, style: { color: '#232323', backgroundColor: '#ffffff' }, children: ru ? optionLabels[index] : option }, option)) })),
+        field(t('About the project', 'О проекте'), jsx('textarea', { 'aria-label':t('About the project','О проекте'), name: 'message', required: true, minLength: 10, rows: 5, maxLength: 2000, disabled: sending, value: message, onChange: event => setMessage(event.target.value), placeholder: t('Share your goals, timeline and anything we should know','Расскажите о задаче, сроках и важных деталях'), className: 'w-full border-b py-12 font-sans text-body-10 text-theme-bg outline-none' })),
         jsx('input', { type: 'text', name: 'website', tabIndex: -1, autoComplete: 'off', 'aria-hidden': 'true', className: 'miro-honeypot' }),
       ] }),
       jsxs('footer', { className: 'flex flex-col gap-16 px-12 pt-20 pb-20 lg:px-20', children: [
         jsx('p', { className: 'text-caption-20 text-theme-bg/65', children: ru ? 'Отправьте заявку — мы получим её и ответим вам по почте.' : 'Send your enquiry directly to our team. We will respond by email.' }),
-        jsx('button', { type: 'submit', disabled: sending, className: 'relative isolate inline-flex h-60 w-full items-center justify-between bg-mint px-20 font-sans text-body-10 text-black disabled:opacity-60', children: sending ? (ru ? 'Отправляем…' : 'Sending…') : (ru ? 'Отправить заявку →' : 'Send enquiry →') }),
+        jsx('button', { type: 'submit', disabled: sending || sentBrief === brief(), className: 'relative isolate inline-flex h-60 w-full items-center justify-between bg-mint px-20 font-sans text-body-10 text-black disabled:opacity-60', children: sending ? t('Sending…','Отправляем…') : sentBrief === brief() ? t('Enquiry sent','Заявка отправлена') : t('Send enquiry →','Отправить заявку →') }),
         sendStatus ? jsx('p', { role: sendError ? 'alert' : 'status', 'aria-live': 'polite', className: 'text-caption-20', children: sendStatus }) : null,
-        jsx('button', { type: 'button', className: 'miro-copy-brief', onClick: async () => { try { await navigator.clipboard.writeText(brief()); setCopyStatus('Brief copied. You can paste it into email or Telegram.'); } catch { setCopyStatus('Copy is unavailable in this browser. Select your text to copy it.'); } }, children: 'Copy brief' }),
+        sendError ? jsx('a', { href: 'https://t.me/sehron', className: 'underline', children: t('Message us on Telegram', 'Написать в Telegram') }) : null,
+        jsx('button', { type: 'button', className: 'miro-copy-brief', onClick: async () => { try { await navigator.clipboard.writeText(brief()); setCopyStatus(t('Brief copied. You can paste it into email or Telegram.', 'Бриф скопирован. Вставьте его в письмо или Telegram.')); } catch { setCopyStatus(t('Copy is unavailable in this browser. Select your text to copy it.', 'Копирование недоступно. Выделите текст и скопируйте его вручную.')); } }, children: t('Copy brief','Скопировать бриф') }),
         copyStatus ? jsx('p', { role: 'status', className: 'text-caption-20', children: copyStatus }) : null,
-        jsxs('p', { className: 'text-caption-20 text-theme-bg/65', children: ['Or email us directly: ', jsx('a', { href: 'mailto:' + address, className: 'underline', children: address })] }),
+        jsxs('p', { className: 'text-caption-20 text-theme-bg/65', children: [t('Or email us directly: ', 'Или напишите на почту: '), jsx('a', { href: 'mailto:' + address, className: 'underline', children: address })] }),
       ] }),
     ],
   });

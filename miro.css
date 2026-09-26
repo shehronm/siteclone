@@ -203,7 +203,7 @@ html[lang="ru"] button.text-theme-bg\/65{min-height:44px;display:inline-flex;ali
 
 /* 768–1023 can support a real split work section without waiting for desktop. */
 @media(min-width:768px) and (max-width:1023px){
-  #clients>.grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important}
+  #clients>.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
   #clients>.grid>div:first-child{order:1!important}
   #clients>.grid>div:nth-child(2){order:2!important}
 }
@@ -258,22 +258,6 @@ header a[href*="#"]{min-height:44px;display:inline-flex;align-items:center}
   #team>div[id]>div{min-width:0!important;width:auto!important;flex-basis:auto!important}
 
   [data-page-builder-section="bannerSection"]{min-height:clamp(560px,72svh,760px)!important}
-}
-
-/* At exactly lg/small-laptop, the original horizontal team rail is more compact than a 2×2 wall. */
-@media(min-width:1024px) and (max-width:1199px){
-  #team>div[id]{
-    display:flex!important;
-    flex-direction:row!important;
-    gap:1px!important;
-    margin-top:-40vh!important;
-    margin-bottom:-20vh!important;
-    padding-top:20vh!important;
-    padding-bottom:20vh!important;
-    overflow-x:auto!important;
-    overflow-y:clip!important;
-  }
-  #team>div[id]>div{flex:0 0 var(--card-basis)!important;width:auto!important}
 }
 
 /* ===== Stage 3 release-gate corrections — 2026-09-22 ===== */
@@ -381,26 +365,57 @@ html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-
   header>div:nth-child(2) ul{flex-wrap:nowrap!important}
 }
 
-/* All slide-over dialogs use an internal top bar. The old floating X outside
-   the panel is removed, so imagery and form content always begin below it. */
+/* All slide-over dialogs use an internal top bar. The original close control
+   has a desktop translate that moves it outside the panel; explicitly reset the
+   modern `translate` property as well as `transform`, otherwise a full-width
+   “Back” bar sits over the dimmed page and leaves an apparent gap below it. */
+:root{--miro-modal-bar-height:60px}
+[data-modal][role="dialog"]{
+  background:var(--color-theme-bg,var(--theme-bg,#fff))!important;
+}
 [data-modal][role="dialog"]::before{display:none!important;content:none!important}
 [data-modal][role="dialog"] > button[type="button"]{
   position:absolute!important;
-  top:0!important;left:0!important;right:0!important;
+  inset:0 0 auto 0!important;
   z-index:8!important;
   width:100%!important;min-width:0!important;
-  height:56px!important;min-height:56px!important;
+  height:var(--miro-modal-bar-height)!important;
+  min-height:var(--miro-modal-bar-height)!important;
+  margin:0!important;
   padding:0 20px!important;
+  translate:none!important;
   transform:none!important;
   justify-content:flex-start!important;
   background:var(--color-theme-bg,var(--theme-bg,#fff))!important;
   color:var(--color-theme-fg,var(--theme-fg,#111))!important;
-  border:0!important;border-bottom:1px solid currentColor!important;
+  border:0!important;
+  border-bottom:1px solid currentColor!important;
+  box-sizing:border-box!important;
 }
 [data-modal][role="dialog"] > button[type="button"] > *{display:none!important}
-[data-modal][role="dialog"] > button[type="button"]::before{content:"← Back";display:block;font-family:var(--font-sans),Arial,sans-serif;font-size:15px;line-height:1;letter-spacing:-.02em;white-space:nowrap}
+[data-modal][role="dialog"] > button[type="button"]::before{
+  content:"← Back";
+  display:block;
+  font-family:var(--font-sans),Arial,sans-serif;
+  font-size:15px;
+  font-weight:450;
+  line-height:1;
+  letter-spacing:-.02em;
+  white-space:nowrap;
+}
 html[lang="ru"] [data-modal][role="dialog"] > button[type="button"]::before{content:"← Назад"}
-[data-modal][role="dialog"] > .custom-scrollbar{position:absolute!important;inset:56px 0 0 0!important;width:100%!important;height:auto!important;margin:0!important}
+[data-modal][role="dialog"] > .custom-scrollbar{
+  position:absolute!important;
+  top:var(--miro-modal-bar-height)!important;
+  right:0!important;
+  bottom:0!important;
+  left:0!important;
+  width:100%!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  background:var(--color-theme-bg,var(--theme-bg,#fff))!important;
+}
 
 
 /* v5.2 — language control sits beside the desktop theme toggle. */
@@ -470,3 +485,121 @@ html[lang="ru"] [data-modal][role="dialog"] > button[type="button"]::before{cont
 @media (min-width:1280px){
   header{grid-template-columns:minmax(0,1fr) minmax(max-content,1fr)}
 }
+
+/* ===== Stage 6 requested UI corrections — 2026-09-24 ===== */
+/* Team role chips: SuisseIntlMono has no Cyrillic glyphs, so Russian falls back
+   to a size-adjusted Arial face and looks substantially larger than English.
+   Use the Cyrillic-capable SuisseIntl sans face for every role label. */
+#team>div[id]>div>div.relative>.font-mono.text-caption-10{
+  font-family:var(--font-sans),Arial,sans-serif!important;
+  font-size:12px!important;
+  font-weight:450!important;
+  line-height:1.1!important;
+  letter-spacing:-.02em!important;
+  white-space:nowrap!important;
+}
+
+/* Keep the original hero composition. Russian only gets a slightly taller
+   reveal box so the dots on Ё in “вперёд” are not clipped. */
+html[lang="ru"] [data-page-builder-section="heroSection"] p.uppercase>span{
+  padding-top:.08em;
+}
+html[lang="ru"] [data-page-builder-section="heroSection"] p.uppercase>span>span.text-headline-50{
+  line-height:.96!important;
+}
+/* Dark-theme grid lines. The Web card uses the same #232323 as the dark page
+   background, so without an explicit line it visually fuses with neighbouring
+   sections. Keep light mode untouched and add restrained separators only in
+   dark mode. */
+html[data-theme="dark"] #about{
+  --miro-dark-grid-line:rgb(255 255 255 / .28);
+  border-top-color:var(--miro-dark-grid-line)!important;
+  border-bottom:1px solid var(--miro-dark-grid-line)!important;
+}
+html[data-theme="dark"] #about>div:last-child{
+  border-top:1px solid var(--miro-dark-grid-line)!important;
+}
+html[data-theme="dark"] #about>div:last-child>div>div{
+  border-color:var(--miro-dark-grid-line)!important;
+}
+html[data-theme="dark"] #about>div:last-child>div>div:first-child{
+  box-shadow:inset 0 0 0 1px var(--miro-dark-grid-line)!important;
+}
+html[data-theme="dark"] #about>div:last-child>div>div:nth-child(3){
+  box-shadow:0 1px var(--miro-dark-grid-line)!important;
+}
+@media(max-width:1023px){
+  html[data-theme="dark"] #about>div:last-child>div>div+div{
+    border-top:1px solid var(--miro-dark-grid-line)!important;
+  }
+}
+
+/* Restrained palette and typography; retain the existing display metrics. */
+:root{
+  --miro-accent-white:#f7f7f3;
+  --font-sans:suisseIntl,Arial,system-ui,sans-serif;
+  --font-mono:suisseIntlMono,"Cascadia Mono",Consolas,ui-monospace,monospace;
+  --text-body-10--letter-spacing:-.02em;
+  --text-caption-10--letter-spacing:0;
+  --text-caption-20--letter-spacing:0;
+  --text-caption-10--line-height:1.3;
+  --text-caption-20--line-height:1.35;
+}
+
+/* Colour is reserved for words and controls, not this large supporting panel. */
+[data-page-builder-section="heroSection"] .inset-shadow-border-t > div.flex.flex-col.bg-mint.text-black{
+  background:var(--color-grey);
+  color:var(--color-black);
+  box-shadow:inset 0 -1px 0 var(--color-black);
+}
+
+/* Both words keep the existing font, size and reveal animation. */
+[data-page-builder-section="heroSection"] p.uppercase > span > span.text-headline-50{
+  color:#fff;
+}
+[data-page-builder-section="heroSection"] div:has(> p.uppercase){
+  background:var(--color-black);
+}
+
+#expertise > .grid > div:first-child h2 > span > span{
+  color:var(--color-black);
+}
+
+/* Keep boundaries visible when neighbouring surfaces share the same colour. */
+html[data-theme="dark"] header > div:nth-child(2) > button{
+  box-shadow:inset 0 -1px 0 var(--color-black);
+}
+#testimonials .sticky.bg-theme-fg{
+  box-shadow:inset 0 1px 0 color-mix(in srgb,var(--color-theme-bg) 38%,transparent);
+}
+
+#clients h2.text-headline-50{
+  color:var(--color-black);
+}
+
+/* Black display words retain a light surface in either theme. */
+html[data-theme="dark"] #clients h2.text-headline-50{
+  background:var(--miro-accent-white);
+}
+
+/* WordOdometer animates a whole word. Do not inherit the body's tight tracking. */
+[data-page-builder-section="bannerSection"] > .relative.z-1{
+  letter-spacing:0;
+  font-kerning:normal;
+}
+[data-page-builder-section="bannerSection"] span[aria-hidden="true"]{
+  white-space:nowrap;
+}
+
+/* Apply the same treatment to the WebGL gallery and its image fallback. */
+#team canvas,#team img,.miro-person-image img{
+  filter:grayscale(1) contrast(1.05);
+}
+.miro-case-copy p{line-height:1.5;letter-spacing:-.01em}
+.miro-person-skills li{line-height:1.35;letter-spacing:0}
+button,a,input,textarea,select{-webkit-tap-highlight-color:rgb(161 255 203 / .35)}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{
+  outline:2px solid currentColor;
+  outline-offset:4px;
+}
+.miro-copy-brief:active,.miro-action:active{background:var(--color-mint);color:var(--color-black)}
