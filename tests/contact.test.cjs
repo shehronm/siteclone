@@ -79,6 +79,34 @@ test('requires JSON and rejects invalid body shapes', async t => {
   assert.equal(mock.mock.callCount(), 0);
 });
 
+test('rejects oversized JSON before delivery, including requests without Content-Length', async t => {
+  const mock = blockNetwork(t);
+  const advertised = await request(validBody(), { headers: { 'content-type': 'application/json', 'content-length': '16385' } });
+  assert.equal(advertised.statusCode, 413);
+  assert.equal(advertised.body.ok, false);
+
+  const oversized = await request({ ...validBody(), extra: 'x'.repeat(17_000) });
+  assert.equal(oversized.statusCode, 413);
+
+  // UTF-8 byte length matters: a short JSON string can still exceed 16 KiB.
+  const multibyte = await request({ ...validBody(), extra: '🟢'.repeat(4_100) });
+  assert.equal(multibyte.statusCode, 413);
+  assert.equal(mock.mock.callCount(), 0);
+});
+
+test('oversized Content-Length is rejected before reading the body getter', async t => {
+  blockNetwork(t);
+  const req = { method: 'POST', headers: { 'content-type': 'application/json', 'content-length': '99999' } };
+  Object.defineProperty(req, 'body', { get() { throw new Error('Body should not be read'); } });
+  const res = {
+    status(code) { this.statusCode = code; return this; },
+    setHeader() { return this; },
+    json(body) { this.body = body; return this; },
+  };
+  await contact(req, res);
+  assert.equal(res.statusCode, 413);
+});
+
 test('server validates field types, lengths, email, topic and whitespace', async t => {
   const mock = blockNetwork(t);
   const invalid = [
@@ -178,4 +206,23 @@ test('network failures and timeouts return retryable failure without exposing se
     assert.deepEqual(response.body, { ok: false, message: 'Message could not be delivered' });
   }
   assert.ok(log.mock.calls.every(call => !call.arguments.join(' ').includes('Do not expose')));
+});
+
+test('delivery log records outcome without request data or provider credentials', async t => {
+  const info = t.mock.method(console, 'info', () => {});
+  const error = t.mock.method(console, 'error', () => {});
+  t.mock.method(globalThis, 'fetch', async () => ({ ok: true, status: 200, json: async () => ({ ok: true }) }));
+
+  const fields = { ...validBody(), name: 'Private Name', email: 'private@example.com', message: 'Private message contents' };
+  assert.equal((await request(fields)).statusCode, 200);
+  assert.equal(info.mock.callCount(), 1);
+  assert.deepEqual(JSON.parse(info.mock.calls[0].arguments[0]), { event: 'contact.delivery', outcome: 'sent' });
+
+  delete process.env.TELEGRAM_BOT_TOKEN;
+  assert.equal((await request(fields)).statusCode, 503);
+  assert.deepEqual(JSON.parse(error.mock.calls[0].arguments[0]), { event: 'contact.delivery', outcome: 'unconfigured' });
+  const logs = [...info.mock.calls, ...error.mock.calls].map(call => call.arguments.join(' ')).join(' ');
+  for (const secret of ['Private Name', 'private@example.com', 'Private message contents', '123456789:test-token-for-local-mocks', '-100123456789']) {
+    assert.equal(logs.includes(secret), false);
+  }
 });

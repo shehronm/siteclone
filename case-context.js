@@ -57,8 +57,31 @@
       : 'Complete the form to send your enquiry directly to our team. We use these details only to respond.';
   }
 
+  // React removes a closed modal, so return keyboard focus to the control that opened it.
+  let pendingOpener = null;
+  let openDialogs = new Set();
+  const openers = new WeakMap();
+  document.addEventListener('click', event => {
+    const trigger = event.target instanceof Element ? event.target.closest('button, a[href]') : null;
+    if (trigger && !trigger.closest('[data-modal], [role="dialog"]')) pendingOpener = trigger;
+  }, true);
+
   // Modals are rendered by React on demand. Reattach after a remount.
-  const sync = () => document.querySelectorAll('[data-modal]').forEach(dialog => { addContext(dialog); updateContactIntro(dialog); });
+  const sync = () => {
+    const current = new Set(document.querySelectorAll('[data-modal]'));
+    for (const dialog of current) {
+      if (!openDialogs.has(dialog)) openers.set(dialog, pendingOpener?.isConnected ? pendingOpener : null);
+      addContext(dialog);
+      updateContactIntro(dialog);
+    }
+    if (!current.size) {
+      for (const dialog of openDialogs) {
+        const opener = openers.get(dialog);
+        if (opener?.isConnected) opener.focus({ preventScroll: true });
+      }
+    }
+    openDialogs = current;
+  };
   let scheduled = false;
   const observe = () => {
     new MutationObserver(() => {

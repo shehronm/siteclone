@@ -1,4 +1,11 @@
 .miro-case{background:var(--color-theme-bg);color:var(--color-theme-fg)}
+/* The streamed HTML arrives before the hero boundary. Keep the following
+   section below the first viewport until React inserts the existing hero. */
+main:not(:has([data-page-builder-section="heroSection"]))::before{
+  content:"";
+  display:block;
+  height:calc(100svh - var(--site-header-height));
+}
 .miro-case-image{position:relative;overflow:hidden;border-bottom:1px solid currentColor}
 .miro-case-image img{display:block;width:100%;height:320px;object-fit:cover}
 .miro-kicker{position:absolute;right:0;top:0;background:#c7ffd7;color:#131313;padding:12px 16px;font:12px var(--font-mono);text-transform:uppercase;border-bottom:1px solid;border-left:1px solid}
@@ -546,9 +553,9 @@ html[data-theme="dark"] #about>div:last-child>div>div:nth-child(3){
   --text-caption-20--line-height:1.35;
 }
 
-/* Colour is reserved for words and controls, not this large supporting panel. */
+/* Match the studio's existing mint token in the supporting hero panel. */
 [data-page-builder-section="heroSection"] .inset-shadow-border-t > div.flex.flex-col.bg-mint.text-black{
-  background:var(--color-grey);
+  background:var(--color-mint);
   color:var(--color-black);
   box-shadow:inset 0 -1px 0 var(--color-black);
 }
