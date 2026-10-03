@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://miro.website/sitemap.xml
+Sitemap: https://mirwink.ru/sitemap.xml

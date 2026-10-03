@@ -610,3 +610,40 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   outline-offset:4px;
 }
 .miro-copy-brief:active,.miro-action:active{background:var(--color-mint);color:var(--color-black)}
+
+/* Reveal the single-line desktop title before application hydration.
+   Match AnimatedText's duration, cubic curve, vertical travel and clipping. */
+.miro-hero-title { display: block; overflow: clip; overflow-clip-margin: .15em; }
+.miro-hero-title > h1 { animation: miro-hero-reveal 1s cubic-bezier(.23,1,.32,1) both; }
+@keyframes miro-hero-reveal {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .miro-hero-title > h1 { animation: none; }
+}
+
+/* Separate the r terminal from w, including small-font pixel rounding. */
+[data-page-builder-section="heroSection"] .shadow-border-b:has(> span > h1.text-headline-50) {
+  container-type: inline-size;
+}
+[data-page-builder-section="heroSection"] h1.text-headline-50 {
+  letter-spacing: max(3px, .025em);
+  font-kerning: normal;
+  /* Account for both spacing branches while retaining the original size when it fits. */
+  font-size: min(var(--text-headline-50), calc((100cqw - 21px) / 3.6), calc(100cqw / 3.76));
+  line-height: calc(var(--text-headline-50) * var(--tw-leading, var(--text-headline-50--line-height)));
+}
+
+/* Match every name strip to the founder's one-line strip.
+   Keep the original bottom padding and allow complete two-line names. */
+#team button.bg-mint[aria-label] {
+  height: calc(72px + 1lh);
+  padding-top: 0;
+  display: flex;
+  align-items: flex-end;
+}
+#team button.bg-mint[aria-label] > [data-inner] { align-items: flex-end; }
+#team button.bg-mint[aria-label] > [data-inner] > svg {
+  margin-bottom: calc((1lh - 1em) / 2);
+}

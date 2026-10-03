@@ -1,6 +1,6 @@
 {
   "generatedBy": "prepare-miro-assets.cjs",
-  "source": "User-provided MIRO website",
+  "source": "User-provided MIRWINK website",
   "concepts": [
     {
       "id": "forma",
@@ -9,7 +9,7 @@
       "image": "assets/media/demos/forma.webp",
       "width": 1536,
       "height": 1024,
-      "status": "Studio concept"
+      "status": "Portfolio project"
     },
     {
       "id": "line",
@@ -18,7 +18,7 @@
       "image": "assets/media/demos/line.webp",
       "width": 1536,
       "height": 1024,
-      "status": "Studio concept"
+      "status": "Portfolio project"
     },
     {
       "id": "ember",
@@ -27,7 +27,7 @@
       "image": "assets/media/demos/ember.webp",
       "width": 1536,
       "height": 1024,
-      "status": "Studio concept"
+      "status": "Portfolio project"
     }
   ],
   "projectTiles": [
@@ -36,42 +36,42 @@
       "path": "assets/miro/forma.svg",
       "width": 800,
       "height": 520,
-      "alt": "FORMA studio concept identity tile"
+      "alt": "FORMA portfolio project identity tile"
     },
     {
       "id": "line",
       "path": "assets/miro/line.svg",
       "width": 800,
       "height": 520,
-      "alt": "LINE studio concept identity tile"
+      "alt": "LINE portfolio project identity tile"
     },
     {
       "id": "ember",
       "path": "assets/miro/ember.svg",
       "width": 800,
       "height": 520,
-      "alt": "ember studio concept identity tile"
+      "alt": "ember portfolio project identity tile"
     },
     {
       "id": "ai-workspace",
       "path": "assets/miro/ai-workspace.svg",
       "width": 800,
       "height": 520,
-      "alt": "AI Workspace capability concept identity tile"
+      "alt": "AI Workspace digital solution identity tile"
     },
     {
       "id": "connected-crm",
       "path": "assets/miro/connected-crm.svg",
       "width": 800,
       "height": 520,
-      "alt": "Connected CRM capability concept identity tile"
+      "alt": "Connected CRM digital solution identity tile"
     },
     {
       "id": "telegram-services",
       "path": "assets/miro/telegram-services.svg",
       "width": 800,
       "height": 520,
-      "alt": "Telegram Services capability concept identity tile"
+      "alt": "Telegram Services digital solution identity tile"
     }
   ],
   "disciplineImages": [

@@ -82,7 +82,7 @@ module.exports = async function contact(req, res) {
   }
 
   const text = [
-    'Новая заявка · MIRO DIGITAL',
+    'Новая заявка · MIRWINK',
     `Имя: ${name}`,
     `Email: ${email}`,
     `Проект: ${topic}`,

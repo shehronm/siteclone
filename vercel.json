@@ -1,4 +1,14 @@
 {
   "cleanUrls": false,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/ru/index.html", "destination": "/ru", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/api/:path*",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ]
 }

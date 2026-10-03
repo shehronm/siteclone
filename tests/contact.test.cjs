@@ -158,7 +158,7 @@ test('successful provider acknowledgement yields the explicit JSON success contr
     assert.equal(payload.chat_id, '-100123456789');
     assert.equal(payload.link_preview_options.is_disabled, true);
     assert.equal(payload.parse_mode, undefined, 'user content is plain text');
-    assert.equal(payload.text, 'Новая заявка · MIRO DIGITAL\nИмя: Test visitor\nEmail: visitor@example.com\nПроект: Website or digital product\n\nA local automated test enquiry.');
+    assert.equal(payload.text, 'Новая заявка · MIRWINK\nИмя: Test visitor\nEmail: visitor@example.com\nПроект: Website or digital product\n\nA local automated test enquiry.');
     return { ok: true, status: 200, json: async () => ({ ok: true, result: { message_id: 1 } }) };
   });
   const response = await request({ ...validBody(), name: '  Test visitor ', email: ' visitor@example.com ', message: ' A local automated test enquiry. ' }, { headers: { 'content-type': 'application/json; charset=utf-8' } });
