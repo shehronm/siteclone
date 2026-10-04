@@ -366,7 +366,7 @@ html[lang="ru"] [data-page-builder-section="insightsSection"] li.font-mono.text-
 .miro-lang-switch a{display:flex!important;align-items:center!important;justify-content:center!important;min-width:56px!important;height:100%!important;padding:0 12px!important;text-decoration:none!important}
 .miro-lang-switch a+a{border-left:1px solid currentColor!important}
 .miro-lang-switch a[aria-current=page]{background:var(--color-theme-fg,var(--theme-fg,#111))!important;color:var(--color-theme-bg,var(--theme-bg,#fff))!important;pointer-events:none}
-@media(max-width:1199px){.miro-lang-switch{display:none!important}}
+@media(max-width:1023px){.miro-lang-switch{display:none!important}}
 @media(min-width:1200px){
   header>div:nth-child(2)>div:first-child{padding-right:20px!important}
   header>div:nth-child(2) ul{flex-wrap:nowrap!important}
@@ -426,7 +426,7 @@ html[lang="ru"] [data-modal][role="dialog"] > button[type="button"]::before{cont
 
 
 /* v5.2 — language control sits beside the desktop theme toggle. */
-@media(min-width:1200px){
+@media(min-width:1024px){
   .miro-lang-switch--header{
     height:44px!important;
     align-self:center!important;
@@ -447,12 +447,12 @@ html[lang="ru"] [data-modal][role="dialog"] > button[type="button"]::before{cont
     flex-wrap:nowrap!important;
   }
 }
-@media(max-width:1199px){
+@media(max-width:1023px){
   .miro-lang-switch{display:none!important}
 }
 
 /* v5.3 — final deterministic language placement beside the real theme toggle. */
-@media (min-width:1200px){
+@media (min-width:1024px){
   header .miro-lang-switch--header{
     position:static!important;
     display:flex!important;
@@ -485,7 +485,7 @@ html[lang="ru"] [data-modal][role="dialog"] > button[type="button"]::before{cont
     color:var(--color-theme-bg,var(--theme-bg,#fff))!important;
   }
 }
-@media (max-width:1199px){header .miro-lang-switch--header{display:none!important}}
+@media (max-width:1023px){header .miro-lang-switch--header{display:none!important}}
 
 /* v5.4: let the desktop controls keep their natural width before the two
    header columns have enough room to be equal (notably 1280px in Russian). */
@@ -647,3 +647,39 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 #team button.bg-mint[aria-label] > [data-inner] > svg {
   margin-bottom: calc((1lh - 1em) / 2);
 }
+
+/* Language selection shares the mobile menu footer with clocks and theme. */
+.miro-menu-footer {
+  grid-template-rows: 60px 44px;
+  flex-shrink: 0;
+}
+.mirwink-language-menu {
+  display: flex;
+  grid-column: 1 / -1;
+  min-width: 0;
+  border-inline: 0;
+  border-top: 1px solid currentColor;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: .04em;
+}
+.mirwink-language-menu a {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  text-decoration: none;
+}
+.mirwink-language-menu a + a { border-left: 1px solid currentColor; }
+.mirwink-language-menu a[aria-current="page"] {
+  background: var(--color-theme-fg);
+  color: var(--color-theme-bg);
+}
+.mirwink-language-menu a:hover:not([aria-current="page"]) {
+  background: var(--color-mint);
+  color: var(--color-black);
+}
+.mirwink-language-menu a:focus-visible { outline-offset: -3px; }
