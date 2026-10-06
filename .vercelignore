@@ -11,3 +11,5 @@ REBRAND-REPORT.md
 UPDATE-REPORT.md
 SEO-SETUP.md
 LANGUAGE-UPDATE.md
+# Internal project documentation is included in the ZIP, not the public website.
+*.md
