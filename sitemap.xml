@@ -2,16 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://mirwink.ru/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://mirwink.ru/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://mirwink.ru/ru"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://mirwink.ru/"/>
   </url>
   <url>
     <loc>https://mirwink.ru/ru</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://mirwink.ru/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://mirwink.ru/ru"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://mirwink.ru/"/>
+  </url>
+  <url>
+    <loc>https://mirwink.ru/services/ai-workspace</loc>
+    <lastmod>2026-10-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirwink.ru/services/ai-workspace"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mirwink.ru/ru/services/ai-workspace"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirwink.ru/services/ai-workspace"/>
+  </url>
+  <url>
+    <loc>https://mirwink.ru/ru/services/ai-workspace</loc>
+    <lastmod>2026-10-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirwink.ru/services/ai-workspace"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mirwink.ru/ru/services/ai-workspace"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirwink.ru/services/ai-workspace"/>
+  </url>
+  <url>
+    <loc>https://mirwink.ru/services/telegram</loc>
+    <lastmod>2026-10-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirwink.ru/services/telegram"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mirwink.ru/ru/services/telegram"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirwink.ru/services/telegram"/>
+  </url>
+  <url>
+    <loc>https://mirwink.ru/ru/services/telegram</loc>
+    <lastmod>2026-10-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirwink.ru/services/telegram"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mirwink.ru/ru/services/telegram"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirwink.ru/services/telegram"/>
+  </url>
+  <url>
+    <loc>https://mirwink.ru/services/crm</loc>
+    <lastmod>2026-10-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirwink.ru/services/crm"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mirwink.ru/ru/services/crm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirwink.ru/services/crm"/>
+  </url>
+  <url>
+    <loc>https://mirwink.ru/ru/services/crm</loc>
+    <lastmod>2026-10-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirwink.ru/services/crm"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mirwink.ru/ru/services/crm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirwink.ru/services/crm"/>
   </url>
 </urlset>

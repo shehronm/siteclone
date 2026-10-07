@@ -2,17 +2,91 @@
   "cleanUrls": false,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/ru/index.html", "destination": "/ru", "permanent": true }
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/index.html",
+      "destination": "/ru",
+      "permanent": true
+    },
+    {
+      "source": "/services/ai-workspace/index.html",
+      "destination": "/services/ai-workspace",
+      "permanent": true
+    },
+    {
+      "source": "/services/telegram/index.html",
+      "destination": "/services/telegram",
+      "permanent": true
+    },
+    {
+      "source": "/services/crm/index.html",
+      "destination": "/services/crm",
+      "permanent": true
+    },
+    {
+      "source": "/ru/services/ai-workspace/index.html",
+      "destination": "/ru/services/ai-workspace",
+      "permanent": true
+    },
+    {
+      "source": "/ru/services/telegram/index.html",
+      "destination": "/ru/services/telegram",
+      "permanent": true
+    },
+    {
+      "source": "/ru/services/crm/index.html",
+      "destination": "/ru/services/crm",
+      "permanent": true
+    }
   ],
   "headers": [
     {
       "source": "/next-assets/static/immutable/chunks/:path*",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
     },
     {
       "source": "/api/:path*",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/services/ai-workspace",
+      "destination": "/services/ai-workspace/index.html"
+    },
+    {
+      "source": "/services/telegram",
+      "destination": "/services/telegram/index.html"
+    },
+    {
+      "source": "/services/crm",
+      "destination": "/services/crm/index.html"
+    },
+    {
+      "source": "/ru/services/ai-workspace",
+      "destination": "/ru/services/ai-workspace/index.html"
+    },
+    {
+      "source": "/ru/services/telegram",
+      "destination": "/ru/services/telegram/index.html"
+    },
+    {
+      "source": "/ru/services/crm",
+      "destination": "/ru/services/crm/index.html"
     }
   ]
 }

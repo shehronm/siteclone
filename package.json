@@ -2,7 +2,8 @@
   "name": "site",
   "private": true,
   "scripts": {
-    "test": "node --test tests/*.test.cjs"
+    "test": "node --test tests/*.test.cjs",
+    "build:services": "node scripts/generate-services.cjs"
   },
   "engines": {
     "node": "24.x"

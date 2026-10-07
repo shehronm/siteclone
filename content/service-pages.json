@@ -1,0 +1,794 @@
+{
+  "ai-workspace": {
+    "ru": {
+      "title": "AI Workspace",
+      "kicker": "AI · База знаний · Рабочие процессы",
+      "headline": "Знания компании — для задач вашей команды.",
+      "description": "MIRWINK проектирует AI-пространства для работы с документами, обращениями и внутренними задачами. Подключаем согласованные источники, задаём роль ассистента и связываем его с нужными инструментами. Для каждого сценария определяем, что система может сделать сама и где решение остаётся за человеком.",
+      "problems": [
+        {
+          "title": "Ответ есть, но его трудно найти",
+          "text": "Инструкции, договорённости и описания услуг находятся в разных документах. Сотруднику приходится открывать несколько источников и уточнять, какая версия актуальна. Начинаем с отбора информации, на которую команда действительно может опираться."
+        },
+        {
+          "title": "Повторяющиеся вопросы занимают рабочий день",
+          "text": "Команда снова объясняет один и тот же процесс или собирает похожие ответы клиентам. Выделяем такие запросы и создаём сценарий поиска информации и подготовки черновика, который сотрудник проверяет перед отправкой."
+        },
+        {
+          "title": "Контекст теряется между разговором и задачей",
+          "text": "После переписки или встречи остаётся длинная история, из которой нужно извлечь решения и следующие шаги. Проектируем сводку с понятной структурой, чтобы её можно было проверить и передать в дальнейшую работу."
+        },
+        {
+          "title": "Общий чат с AI не знает правила компании",
+          "text": "Ответ может звучать убедительно, но не учитывать ваши услуги, ограничения и порядок действий. Задаём инструкции, допустимые источники и поведение при недостатке данных: запросить уточнение или передать вопрос специалисту."
+        },
+        {
+          "title": "Автоматизация упирается в доступы и ответственность",
+          "text": "Не все документы доступны всей команде, а действия в рабочих системах требуют контроля. До подключения инструментов определяем роли, границы доступа и операции, для которых нужно подтверждение человека."
+        }
+      ],
+      "scenarios": [
+        {
+          "title": "Ассистент по внутренней базе знаний",
+          "text": "Сотрудник задаёт вопрос о процессе, услуге или документе. Ассистент ищет ответ в разрешённых материалах и указывает использованный источник, когда это поддерживается выбранным подключением. Если данных недостаточно, сценарий предусматривает уточнение или передачу вопроса ответственному."
+        },
+        {
+          "title": "Разбор обращений и черновики ответов",
+          "text": "Ассистент определяет тему входящего обращения, выделяет важные детали и готовит вариант ответа по информации компании. Сотрудник проверяет текст, уточняет спорные моменты и решает, что отправить клиенту."
+        },
+        {
+          "title": "Сводки документов и разговоров",
+          "text": "Из предоставленного текста собираем краткое содержание, принятые решения, открытые вопросы и возможные следующие действия. Формат сводки согласуем с командой; неоднозначные выводы остаются на проверку человеку."
+        },
+        {
+          "title": "Подготовка действий в рабочих инструментах",
+          "text": "Ассистент может подготовить данные для задачи, карточки или другого согласованного действия. Подключение выполняем через доступные интерфейсы системы. Для операций, требующих контроля, сначала показываем человеку, что именно будет изменено."
+        }
+      ],
+      "deliverables": [
+        {
+          "title": "Описание сценария и критериев качества",
+          "text": "Фиксируем, кому помогает ассистент, какие запросы обрабатывает и по каким признакам принимается результат. Отдельно определяем ситуации, которые должны возвращаться человеку."
+        },
+        {
+          "title": "Подключённые источники знаний",
+          "text": "Настраиваем согласованные документы и доступные подключения. Определяем владельцев информации, порядок её обновления и обращение с материалами, которые больше не актуальны."
+        },
+        {
+          "title": "Инструкции и форматы ответов",
+          "text": "Задаём назначение ассистента, структуру результата, допустимый тон и работу с неопределённостью. Для разных задач используем отдельные инструкции, когда одного сценария недостаточно."
+        },
+        {
+          "title": "Роли и правила доступа",
+          "text": "Согласуем пользователей, доступные им источники и разрешённые действия. Возможности разграничения проверяем на выбранной платформе и в системах, которые подключаются к ней."
+        },
+        {
+          "title": "Интеграции и подтверждение действий",
+          "text": "Связываем сценарий с согласованными инструментами там, где доступны нужные API и права. Определяем подтверждения, уведомления об ошибках и порядок ручной обработки исключений."
+        },
+        {
+          "title": "Проверки и передача команде",
+          "text": "Проверяем сценарий на согласованном наборе обычных и сложных запросов. Передаём инструкции по работе, обновлению источников и разбору ответов, которые не прошли проверку."
+        }
+      ],
+      "process": [
+        {
+          "title": "Выбираем конкретную задачу",
+          "text": "Разбираем текущий процесс: откуда приходит запрос, где сотрудник ищет информацию и каким должен быть результат. Выбираем первый сценарий и заранее договариваемся о критериях проверки."
+        },
+        {
+          "title": "Проверяем данные и доступы",
+          "text": "Изучаем источники, их актуальность и ограничения использования. Определяем ответственных за материалы, возможности подключений и границы действий ассистента."
+        },
+        {
+          "title": "Собираем и проверяем сценарий",
+          "text": "Настраиваем инструкции, источники и инструменты. Сравниваем ответы с исходными материалами, проверяем недостаток данных, ошибки подключений и передачу задачи человеку."
+        },
+        {
+          "title": "Передаём в работу и оцениваем",
+          "text": "Показываем команде, как использовать и проверять ассистента. Фиксируем наблюдения и измерения по согласованным метрикам, затем определяем, какие изменения нужны до расширения сценария."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Что такое AI Workspace в вашем подходе?",
+          "a": "Это рабочее пространство, в котором ассистенты решают определённые задачи с согласованными знаниями и инструментами. В нашем подходе предусмотрены сценарии на базе Dust. Подходящую конфигурацию определяем после разбора процесса, источников и доступов."
+        },
+        {
+          "q": "Нужно ли сначала привести все документы в идеальный порядок?",
+          "a": "Для первого сценария нужен ограниченный набор актуальных материалов, на которые можно опираться. Вместе определяем этот набор, владельцев информации и правила обновления. Большую неподготовленную базу не стоит подключать без проверки содержания и доступов."
+        },
+        {
+          "q": "Кто будет видеть внутреннюю информацию?",
+          "a": "Права пользователей и ассистентов согласуем до подключения данных. Проверяем, какие ограничения поддерживают платформа и конкретные источники. Отдельно обсуждаем требования к обработке информации: доступность функции сама по себе не означает, что любые данные можно передавать выбранному сервису."
+        },
+        {
+          "q": "Может ли ассистент ошибиться?",
+          "a": "Да. Поэтому определяем допустимые источники, проверяем ответы на согласованной выборке и предусматриваем работу с недостатком данных. Для важных ответов и действий настраиваем проверку человеком. Ни база знаний, ни инструкции не дают гарантии отсутствия ошибок."
+        },
+        {
+          "q": "Можно ли связать AI с CRM и другими инструментами?",
+          "a": "Возможность зависит от API, доступных подключений и прав в конкретных системах. Сначала определяем, какие данные ассистент должен читать и какие действия готовить. Затем согласуем подтверждения и обработку ошибок; необходимость каждого подключения оцениваем отдельно."
+        }
+      ],
+      "metrics": [
+        {
+          "label": "Время подготовки ответа",
+          "unit": "мин",
+          "method": "Сравнить медианное время подготовки и проверки ответа до и после внедрения на сопоставимых запросах. Включать время сотрудника на исправления; период и состав выборки фиксировать вместе с результатом."
+        },
+        {
+          "label": "Черновики без содержательных правок",
+          "unit": "%",
+          "method": "Рассчитать долю проверенных черновиков, принятых без исправления фактов и смысла. Заранее определить критерии приёмки и указать количество проверенных ответов."
+        },
+        {
+          "label": "Ответы, подтверждённые источниками",
+          "unit": "%",
+          "method": "На согласованной выборке проверить, подтверждаются ли существенные утверждения разрешёнными актуальными источниками. Отдельно учитывать отказы и запросы уточнения, чтобы они не искажали результат."
+        }
+      ],
+      "ctaTitle": "Начнём с задачи, которая повторяется каждый день.",
+      "ctaText": "Расскажите, что команда ищет, читает или готовит вручную и где хранится нужная информация. Обсудим первый сценарий, источники и границы автоматизации."
+    },
+    "en": {
+      "title": "AI Workspace",
+      "kicker": "AI · Company knowledge · Workflows",
+      "headline": "Company knowledge, ready for your team's next task.",
+      "description": "MIRWINK designs AI workspaces for documents, enquiries and internal tasks. We connect approved sources, define the assistant's role and link it to the tools the job requires. For each workflow, we establish what the system may do on its own and where a person makes the decision.",
+      "problems": [
+        {
+          "title": "The answer exists, but it is hard to find",
+          "text": "Instructions, agreements and service information live across different documents. People open several sources and still need to check which version is current. We start by selecting the information your team can rely on."
+        },
+        {
+          "title": "Repeated questions take up the working day",
+          "text": "The team keeps explaining the same process or drafting similar replies. We identify those requests and build a workflow that finds the relevant information and prepares a draft for someone to review before sending."
+        },
+        {
+          "title": "Context gets lost between a conversation and a task",
+          "text": "A meeting or message thread leaves a long history to work through. We design a summary that separates decisions, open questions and next steps so someone can check it and use it in the next stage of work."
+        },
+        {
+          "title": "A general AI chat does not know your rules",
+          "text": "An answer may sound convincing without reflecting your services, constraints or procedures. We define instructions, approved sources and what to do when information is missing: ask for clarification or hand the question to a person."
+        },
+        {
+          "title": "Automation needs clear permissions and ownership",
+          "text": "Some documents are restricted, and actions in business tools need oversight. Before connecting tools, we define roles, access boundaries and the operations that require a person's approval."
+        }
+      ],
+      "scenarios": [
+        {
+          "title": "An assistant for internal knowledge",
+          "text": "A team member asks about a process, service or document. The assistant searches approved material and identifies the source when the chosen connection supports it. If information is insufficient, the workflow asks for clarification or routes the question to its owner."
+        },
+        {
+          "title": "Enquiry classification and reply drafts",
+          "text": "The assistant identifies the subject of an enquiry, extracts relevant details and prepares a reply using company information. A team member checks the draft, resolves anything uncertain and decides what to send to the customer."
+        },
+        {
+          "title": "Document and conversation summaries",
+          "text": "We turn supplied text into a summary of key points, decisions, open questions and possible next actions. The team agrees the format; ambiguous conclusions remain subject to human review."
+        },
+        {
+          "title": "Preparing actions in business tools",
+          "text": "An assistant can prepare the information for a task, record or another agreed action. We connect through the interfaces available in the target system. Where approval is required, a person first sees exactly what is about to change."
+        }
+      ],
+      "deliverables": [
+        {
+          "title": "A defined workflow and quality criteria",
+          "text": "We document who the assistant supports, which requests it handles and how its output is accepted. We also identify situations that must return to a person."
+        },
+        {
+          "title": "Connected knowledge sources",
+          "text": "We configure the agreed documents and available connections. We identify content owners, an update process and how outdated material should be handled."
+        },
+        {
+          "title": "Instructions and response formats",
+          "text": "We define the assistant's purpose, output structure, tone and handling of uncertainty. Different tasks receive separate instructions where one workflow is not sufficient."
+        },
+        {
+          "title": "Roles and access rules",
+          "text": "We agree who can use the workspace, which sources they may access and which actions are permitted. We check how those boundaries are supported by the chosen platform and connected systems."
+        },
+        {
+          "title": "Tool connections and approval steps",
+          "text": "We connect the workflow to agreed tools where the required APIs and permissions are available. We define approvals, error notifications and how exceptions are handled manually."
+        },
+        {
+          "title": "Checks and team handover",
+          "text": "We check the workflow against an agreed set of routine and difficult requests. The handover explains how to use the assistant, update its sources and review answers that do not meet the criteria."
+        }
+      ],
+      "process": [
+        {
+          "title": "Choose a specific task",
+          "text": "We examine the current process: where requests arrive, where people find information and what the result should look like. We select the first workflow and agree how it will be checked."
+        },
+        {
+          "title": "Review data and permissions",
+          "text": "We examine the sources, their accuracy and restrictions on their use. We identify content owners, connection options and the limits of the assistant's authority."
+        },
+        {
+          "title": "Build and check the workflow",
+          "text": "We configure instructions, sources and tools. We compare answers with source material and check missing information, connection errors and the handover to a person."
+        },
+        {
+          "title": "Introduce it to the team and evaluate",
+          "text": "We show the team how to use and review the assistant. We record observations and agreed measurements, then decide what needs to change before the workflow is expanded."
+        }
+      ],
+      "faq": [
+        {
+          "q": "What does AI Workspace mean in your approach?",
+          "a": "It is a workspace where assistants carry out defined tasks using approved knowledge and tools. Our approach includes workflows based on Dust. We choose a suitable configuration after reviewing the process, information sources and permissions."
+        },
+        {
+          "q": "Do all our documents need to be organised first?",
+          "a": "The first workflow needs a limited set of current, dependable material. We identify that set, its owners and its update rules together. A large, unprepared knowledge base should not be connected without checking its content and permissions."
+        },
+        {
+          "q": "Who will be able to see internal information?",
+          "a": "We agree user and assistant permissions before connecting data. We check the boundaries supported by the platform and each source. Data handling requirements are discussed separately: a feature being available does not mean that every type of information is suitable for that service."
+        },
+        {
+          "q": "Can the assistant make mistakes?",
+          "a": "Yes. We therefore define approved sources, check answers against an agreed sample and plan for missing information. Important replies and actions require human review where agreed. Neither a knowledge base nor instructions can guarantee that errors will never occur."
+        },
+        {
+          "q": "Can AI connect to our CRM and other tools?",
+          "a": "This depends on the APIs, connections and permissions available in each system. We first define what the assistant needs to read and which actions it should prepare. We then agree approvals and error handling, assessing each connection individually."
+        }
+      ],
+      "metrics": [
+        {
+          "label": "Reply preparation time",
+          "unit": "min",
+          "method": "Compare median reply preparation and review time before and after implementation using comparable requests. Include time spent making corrections, and record the measurement period and sample alongside the result."
+        },
+        {
+          "label": "Drafts accepted without substantive changes",
+          "unit": "%",
+          "method": "Measure the share of reviewed drafts accepted without changes to facts or meaning. Agree acceptance criteria in advance and disclose how many replies were reviewed."
+        },
+        {
+          "label": "Answers supported by approved sources",
+          "unit": "%",
+          "method": "Check an agreed sample to establish whether material claims are supported by approved, current sources. Record refusals and clarification requests separately so they do not distort the result."
+        }
+      ],
+      "ctaTitle": "Start with a task your team handles every day.",
+      "ctaText": "Tell us what your team searches for, reads or prepares manually, and where the information lives. We can discuss the first workflow, its sources and the boundaries of automation."
+    }
+  },
+  "telegram": {
+    "ru": {
+      "title": "Telegram Services",
+      "kicker": "Telegram · Боты · Mini Apps",
+      "headline": "От сообщения клиента — к понятному следующему шагу.",
+      "description": "MIRWINK разрабатывает Telegram-ботов и Mini Apps для заявок, бронирования и сервисных процессов. Проектируем диалог или интерфейс, связываем обращения с CRM и расписанием, настраиваем уведомления и передачу специалисту. Состав сервиса определяем по тому, что нужно клиенту и вашей команде.",
+      "problems": [
+        {
+          "title": "Заявки остаются в переписке",
+          "text": "В сообщениях есть интерес клиента, но не хватает данных для следующего шага. Проектируем короткий путь, который собирает нужные сведения, показывает их пользователю перед отправкой и передаёт ответственному."
+        },
+        {
+          "title": "Менеджер повторяет одни и те же уточнения",
+          "text": "Какую услугу выбрал человек, когда ему удобно и как с ним связаться — эти вопросы задаются заново в каждом диалоге. Переносим понятные шаги в бот, а нестандартные ситуации оставляем для разговора со специалистом."
+        },
+        {
+          "title": "Простой бот становится неудобным",
+          "text": "Большой каталог, фильтры и формы трудно разместить в цепочке сообщений. Если задача требует визуального выбора, проектируем Mini App внутри Telegram, сохраняя бот для входа в сервис и нужных уведомлений."
+        },
+        {
+          "title": "Переписка и рабочие системы живут отдельно",
+          "text": "Данные приходится переносить вручную, а статус обращения сложно восстановить. Определяем, какие сведения должны попадать в CRM или расписание, как они обновляются и что делать, если передача не состоялась."
+        },
+        {
+          "title": "Клиент не понимает, что происходит дальше",
+          "text": "После отправки сообщения человек не знает, принята ли заявка и кто её рассматривает. Проектируем явные подтверждения и статусы, а также путь к сотруднику, когда автоматического сценария недостаточно."
+        }
+      ],
+      "scenarios": [
+        {
+          "title": "Заявка на услугу с передачей в CRM",
+          "text": "Клиент выбирает направление, отвечает на нужные вопросы и проверяет введённые данные. Сервис передаёт заявку в согласованную систему, назначает дальнейшую обработку по заданным правилам и сообщает клиенту результат отправки."
+        },
+        {
+          "title": "Бронирование по доступному расписанию",
+          "text": "Пользователь выбирает услугу, специалиста или время. При доступной интеграции сервис сверяется с системой расписания и повторно проверяет доступность перед подтверждением. Правила переноса, отмены и ручного согласования определяются заранее."
+        },
+        {
+          "title": "Каталог или форма заказа в Mini App",
+          "text": "Пользователь изучает предложение, выбирает параметры и отправляет составленный запрос из интерфейса внутри Telegram. Подключение оплаты обсуждается отдельно, если она нужна процессу; для заявки или согласования заказа она не обязательна."
+        },
+        {
+          "title": "Сервисные обращения и передача человеку",
+          "text": "Бот помогает выбрать тему, собрать описание и передать обращение нужной команде. Для согласованных этапов настраиваем уведомления. Если вопрос выходит за сценарий, пользователь получает понятный способ связаться со специалистом."
+        }
+      ],
+      "deliverables": [
+        {
+          "title": "Карта пути клиента",
+          "text": "Описываем вход в сервис, выбор действия, сбор данных и финальное подтверждение. Отдельно прорабатываем возврат назад, незавершённую заявку и обращение к человеку."
+        },
+        {
+          "title": "Бот и тексты диалога",
+          "text": "Разрабатываем согласованные команды, кнопки и последовательности вопросов. Пишем понятные сообщения о результате, ошибках и следующих шагах."
+        },
+        {
+          "title": "Интерфейс Mini App при необходимости",
+          "text": "Если задаче нужен каталог, визуальный выбор или форма сложнее диалога, проектируем и разрабатываем интерфейс внутри Telegram. Состав экранов зависит от выбранного сценария."
+        },
+        {
+          "title": "Подключения к рабочим системам",
+          "text": "Настраиваем согласованную передачу данных в CRM, расписание или другой сервис, если доступны нужные API и права. Определяем правила сопоставления полей, проверки дублей и ошибок передачи."
+        },
+        {
+          "title": "Уведомления и передача специалисту",
+          "text": "Определяем, какие события требуют уведомления, кому оно адресовано и как сотрудник продолжает работу. Согласуем доступ команды к данным и сообщения клиенту при ручной обработке."
+        },
+        {
+          "title": "Проверка сценариев и инструкции",
+          "text": "Проверяем основные действия, повторные нажатия, незаполненные поля и недоступность подключённых систем. Передаём инструкции по использованию сервиса и обработке исключений."
+        }
+      ],
+      "process": [
+        {
+          "title": "Разбираем путь обращения",
+          "text": "Определяем, с чем приходит клиент, какие данные нужны команде и чем должен завершаться сценарий. Выбираем бот, Mini App или их сочетание по задаче."
+        },
+        {
+          "title": "Проектируем диалог и правила",
+          "text": "Собираем последовательность шагов, состояния интерфейса и тексты. Согласуем проверки, подтверждения, доступ сотрудников и передачу нестандартных вопросов человеку."
+        },
+        {
+          "title": "Разрабатываем и подключаем системы",
+          "text": "Собираем сервис и согласованные интеграции. Проверяем получение заявки системой, поведение при повторной отправке и ситуации, когда подключение временно недоступно."
+        },
+        {
+          "title": "Проверяем с командой и передаём",
+          "text": "Проходим сценарии клиента и сотрудника, включая ошибки и возвраты к предыдущим шагам. Передаём инструкции и согласуем, какие события измерять для дальнейшего улучшения сервиса."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Что выбрать: бота или Mini App?",
+          "a": "Бот подходит для короткого диалога, уведомлений и простого сбора данных. Mini App удобен, когда нужны каталог, фильтры, несколько связанных полей или визуальный выбор. Иногда они работают вместе; решение принимаем по пути клиента, а не по количеству функций."
+        },
+        {
+          "q": "Можно ли подключить уже используемую CRM?",
+          "a": "Сначала проверяем её API, правила доступа и операции, которые требуется выполнять. Затем согласуем структуру заявки, сопоставление полей, обновление статусов и обработку дублей. Наличие CRM само по себе не подтверждает доступность любой интеграции."
+        },
+        {
+          "q": "Нужно ли обязательно подключать оплату?",
+          "a": "Нет. Сервис может собирать заявки, бронировать время, помогать с выбором и передавать клиента менеджеру без оплаты внутри Telegram. Если оплата нужна, отдельно обсуждаем её роль в процессе, доступный способ подключения и действующие требования платформы."
+        },
+        {
+          "q": "Можно ли управлять переносом и отменой записи?",
+          "a": "Да, такой сценарий можно включить в проект, если его поддерживает используемая система расписания. До реализации согласуем ограничения, повторную проверку доступности и случаи, в которых изменение должен подтвердить сотрудник."
+        },
+        {
+          "q": "Что происходит, если клиент прервал диалог или CRM недоступна?",
+          "a": "Эти ситуации разбираем при проектировании. Для незавершённого сценария определяем, какие данные сохраняются и как пользователь продолжит работу. Для ошибок интеграции задаём уведомление, допустимые повторные попытки и ручную обработку. Подтверждение успешной передачи не должно появляться до её проверки."
+        }
+      ],
+      "metrics": [
+        {
+          "label": "Завершённые сценарии",
+          "unit": "%",
+          "method": "Рассчитать долю уникальных начатых сценариев, которые дошли до согласованного целевого действия. Заранее определить начало, завершение и период измерения; исключить тестовые сессии."
+        },
+        {
+          "label": "Заявки, принятые рабочей системой",
+          "unit": "%",
+          "method": "Сопоставить валидные отправки из Telegram с подтверждёнными записями в CRM или другой целевой системе. Учитывать повторные попытки по идентификатору заявки и отдельно фиксировать дубли и ошибки."
+        },
+        {
+          "label": "Время первичной обработки заявки",
+          "unit": "мин",
+          "method": "Измерить медианное время от валидной отправки до согласованного первого действия сотрудника или системы. Сравнивать сопоставимые обращения и учитывать рабочее время команды."
+        }
+      ],
+      "ctaTitle": "Какой следующий шаг нужен вашему клиенту?",
+      "ctaText": "Расскажите, какие обращения приходят в Telegram и что команда делает с ними дальше. Обсудим путь клиента, нужные подключения и формат сервиса."
+    },
+    "en": {
+      "title": "Telegram Services",
+      "kicker": "Telegram · Bots · Mini Apps",
+      "headline": "From a customer's message to a clear next step.",
+      "description": "MIRWINK builds Telegram bots and Mini Apps for enquiries, booking and service workflows. We design the conversation or interface, connect requests to CRM and scheduling tools, and define notifications and handover to a person. The scope follows what your customers and team need to do.",
+      "problems": [
+        {
+          "title": "Enquiries stay buried in conversations",
+          "text": "A message shows interest, but lacks the details needed for the next step. We design a short flow that collects the necessary information, lets the customer review it and passes it to the right person or system."
+        },
+        {
+          "title": "Your team repeats the same questions",
+          "text": "Which service does the customer need, when are they available and how can you contact them? These questions recur in every conversation. We put straightforward steps into the bot and leave unusual situations for a conversation with a specialist."
+        },
+        {
+          "title": "A simple bot becomes difficult to use",
+          "text": "A large catalogue, filters and forms can be awkward in a chain of messages. When the task needs visual choices, we design a Mini App inside Telegram and use the bot for access and relevant notifications."
+        },
+        {
+          "title": "Conversations are separate from business systems",
+          "text": "People copy information manually and struggle to reconstruct the status of a request. We define what should reach the CRM or schedule, how it is updated and what happens if the transfer fails."
+        },
+        {
+          "title": "Customers do not know what happens next",
+          "text": "After sending a message, the customer cannot tell whether the request was received or who is handling it. We design explicit confirmations and statuses, with a route to a person when the automated flow is not enough."
+        }
+      ],
+      "scenarios": [
+        {
+          "title": "A service enquiry connected to CRM",
+          "text": "The customer selects a service, answers the necessary questions and reviews their details. The service sends the enquiry to the agreed system, routes further handling according to defined rules and tells the customer whether submission succeeded."
+        },
+        {
+          "title": "Booking against an available schedule",
+          "text": "The customer selects a service, specialist or time. Where a suitable integration is available, the service checks the scheduling system and rechecks availability before confirmation. Rescheduling, cancellation and manual approval rules are defined in advance."
+        },
+        {
+          "title": "A catalogue or order form in a Mini App",
+          "text": "The customer explores the offer, chooses options and submits a request through an interface inside Telegram. Payment integration is discussed separately if the process needs it; an enquiry or order awaiting approval does not require it."
+        },
+        {
+          "title": "Service requests and human handover",
+          "text": "The bot helps the customer choose a topic, describe the issue and route the request to the appropriate team. We configure notifications for agreed stages. When a question falls outside the flow, the customer has a clear way to reach a specialist."
+        }
+      ],
+      "deliverables": [
+        {
+          "title": "A mapped customer journey",
+          "text": "We describe entry into the service, action selection, data collection and final confirmation. We also plan going back, unfinished requests and contacting a person."
+        },
+        {
+          "title": "A bot and its conversation content",
+          "text": "We build the agreed commands, buttons and question sequences. The content explains outcomes, errors and next steps in clear language."
+        },
+        {
+          "title": "A Mini App interface where needed",
+          "text": "When the task requires a catalogue, visual selection or a form more involved than a conversation, we design and build an interface inside Telegram. The screens follow the chosen workflow."
+        },
+        {
+          "title": "Connections to business systems",
+          "text": "We configure agreed data transfers to CRM, scheduling or other services where the required APIs and permissions are available. We define field mapping, duplicate checks and transfer error handling."
+        },
+        {
+          "title": "Notifications and specialist handover",
+          "text": "We establish which events need a notification, who receives it and how a team member continues the work. We agree staff access to data and messages shown to customers during manual handling."
+        },
+        {
+          "title": "Workflow checks and instructions",
+          "text": "We check core actions, repeated taps, missing fields and unavailable connected systems. We hand over instructions for using the service and dealing with exceptions."
+        }
+      ],
+      "process": [
+        {
+          "title": "Understand the enquiry journey",
+          "text": "We establish what brings a customer to the service, what information the team needs and how the flow should end. We choose a bot, Mini App or combination based on that task."
+        },
+        {
+          "title": "Design the conversation and rules",
+          "text": "We map the steps, interface states and content. We agree validation, confirmations, staff access and the handover of questions that fall outside the flow."
+        },
+        {
+          "title": "Build and connect the systems",
+          "text": "We build the service and agreed integrations. We check that the target system receives requests, what happens on repeated submission and how the service responds when a connection is temporarily unavailable."
+        },
+        {
+          "title": "Check with the team and hand over",
+          "text": "We work through customer and staff journeys, including errors and returning to earlier steps. We hand over instructions and agree which events to measure when improving the service."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Should we choose a bot or a Mini App?",
+          "a": "A bot works well for short conversations, notifications and simple data collection. A Mini App is useful for catalogues, filters, several related fields or visual choices. Sometimes they work together. We choose based on the customer's task, rather than the number of features."
+        },
+        {
+          "q": "Can it connect to the CRM we already use?",
+          "a": "We first check its API, access rules and the operations you need. We then agree the enquiry structure, field mapping, status updates and duplicate handling. Having a CRM does not by itself establish that every integration is available."
+        },
+        {
+          "q": "Do we have to include payments?",
+          "a": "No. The service can collect enquiries, book appointments, help customers choose and hand them over to a team member without taking payments in Telegram. If payments are needed, we separately review their place in the process, an available integration and current platform requirements."
+        },
+        {
+          "q": "Can customers reschedule or cancel a booking?",
+          "a": "That workflow can be included if the scheduling system supports it. Before implementation, we agree restrictions, availability checks and the cases in which a team member must approve the change."
+        },
+        {
+          "q": "What happens if a customer stops midway or the CRM is unavailable?",
+          "a": "We address these cases during design. For an unfinished flow, we decide which information is saved and how the customer can continue. For integration failures, we define notifications, permitted retries and manual handling. A successful transfer should not be confirmed before it has been checked."
+        }
+      ],
+      "metrics": [
+        {
+          "label": "Completed workflows",
+          "unit": "%",
+          "method": "Measure the share of unique started workflows that reach the agreed target action. Define the start, completion and measurement period in advance, excluding test sessions."
+        },
+        {
+          "label": "Requests accepted by the target system",
+          "unit": "%",
+          "method": "Match valid Telegram submissions to confirmed records in CRM or another target system. Track retries using the request identifier and report duplicates and errors separately."
+        },
+        {
+          "label": "Time to initial enquiry handling",
+          "unit": "min",
+          "method": "Measure median time from a valid submission to the agreed first action by a person or system. Compare similar enquiries and account for the team's working hours."
+        }
+      ],
+      "ctaTitle": "What should your customer's next step be?",
+      "ctaText": "Tell us which enquiries arrive through Telegram and what your team does with them next. We can discuss the customer journey, required connections and the right format for the service."
+    }
+  },
+  "crm": {
+    "ru": {
+      "title": "CRM и интеграции",
+      "kicker": "Клиенты · Продажи · Следующий шаг",
+      "headline": "Каждая заявка.\nВ одном процессе.",
+      "description": "MIRWINK проектирует и внедряет CRM под вашу работу: от первого обращения до следующей задачи менеджера. Связываем сайт, Telegram и клиентские данные, чтобы команда видела историю общения, ответственного и текущий этап сделки.",
+      "problems": [
+        {
+          "title": "Заявки приходят в разные места",
+          "text": "Форма на сайте, личные переписки и таблицы создают несколько версий одной истории. Собираем обращения из согласованных источников в общий процесс с понятными правилами распределения."
+        },
+        {
+          "title": "Непонятно, кто должен ответить",
+          "text": "У сделки может быть статус, но не быть следующего действия. Настраиваем ответственного, задачу и напоминание так, чтобы передача между сотрудниками не зависела от памяти."
+        },
+        {
+          "title": "Данные приходится переносить вручную",
+          "text": "Контакт копируют из чата в таблицу, затем ещё раз в отчёт. Проектируем интеграции, проверку обязательных полей и обработку дублей до того, как данные попадут в работу."
+        },
+        {
+          "title": "Отчёт не объясняет, что происходит",
+          "text": "Общий объём заявок мало говорит о продажах. Определяем этапы и причины отказов, по которым можно разобраться, где обращения задерживаются и что требует внимания."
+        }
+      ],
+      "scenarios": [
+        {
+          "title": "Заявка с сайта → менеджеру",
+          "text": "Форма передаёт контакт и выбранную услугу. CRM создаёт или обновляет карточку, сохраняет источник, назначает ответственного и фиксирует следующую задачу."
+        },
+        {
+          "title": "Telegram → общая история",
+          "text": "Бот собирает данные по сценарию и передаёт обращение в CRM. Менеджер получает контекст запроса, а клиент — понятное подтверждение и способ продолжить разговор."
+        },
+        {
+          "title": "Сделка → выполнение",
+          "text": "После согласованного этапа появляется задача для следующего участника команды. Передаём нужные поля и договорённости; правила перехода помогают не начинать работу с неполными данными."
+        },
+        {
+          "title": "Повторное обращение → знакомый клиент",
+          "text": "Проверяем правила сопоставления контактов, чтобы новое обращение не превращалось в лишний дубль. История остаётся доступна сотрудникам с соответствующими правами."
+        }
+      ],
+      "deliverables": [
+        {
+          "title": "Воронка под ваш процесс",
+          "text": "Описанные этапы, условия переходов и обязательные поля. Система отражает то, как вы продаёте и обслуживаете клиентов, а не заставляет команду подстраиваться под случайный шаблон."
+        },
+        {
+          "title": "Клиентская база",
+          "text": "Структура контактов, компаний и сделок. Перед импортом согласуем источники, проверяем качество данных и правила объединения дублей."
+        },
+        {
+          "title": "Подключённые каналы",
+          "text": "Интеграции с формами сайта, Telegram и согласованными сервисами. Для каждого подключения определяем состав данных, ограничения API и поведение при недоступности сервиса."
+        },
+        {
+          "title": "Задачи и уведомления",
+          "text": "Назначение ответственных, следующие действия и уведомления о важных событиях. Автоматизируем понятные правила; нестандартные ситуации передаём человеку."
+        },
+        {
+          "title": "Доступы и контроль",
+          "text": "Права по ролям, согласованный порядок работы с клиентскими данными и проверка ключевых сценариев. Команда понимает, кто может видеть и изменять информацию."
+        },
+        {
+          "title": "Передача команде",
+          "text": "Рабочие инструкции, разбор типовых действий и перечень подключений. Условия сопровождения, обновлений и дальнейшего развития фиксируем отдельно."
+        }
+      ],
+      "process": [
+        {
+          "title": "Разбираем путь заявки",
+          "text": "Изучаем источники обращений, текущую CRM или таблицы и роли команды. Выбираем процесс для первого запуска и договариваемся, как проверить результат."
+        },
+        {
+          "title": "Проектируем логику",
+          "text": "Согласуем этапы, поля, права доступа и схему обмена данными. До разработки показываем, как заявка будет проходить через систему."
+        },
+        {
+          "title": "Собираем и проверяем",
+          "text": "Настраиваем CRM, подключаем каналы и проверяем обычные и ошибочные сценарии: повторную отправку, неполные данные, недоступность интеграции и передачу между сотрудниками."
+        },
+        {
+          "title": "Запускаем в работу",
+          "text": "Проводим согласованный запуск, обучаем команду и сверяем показатели с исходной точкой. Следующие изменения выбираем по реальным наблюдениям за процессом."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Если CRM уже есть, нужно ли менять её?",
+          "a": "Не обязательно. Сначала изучим, что работает, чего не хватает и какие интеграции доступны. Иногда достаточно доработать этапы и связать сервисы. Перенос предложим, если он решает конкретную задачу и его преимущества оправдывают затраты."
+        },
+        {
+          "q": "Какую CRM вы используете?",
+          "a": "Один из вариантов решения — Twenty. Платформу, размещение и необходимые подключения выбираем после разбора требований. До начала работ уточняем совместимость, лицензии и расходы сторонних сервисов."
+        },
+        {
+          "q": "Можно ли связать CRM с нашим сайтом и Telegram?",
+          "a": "Да, это один из основных сценариев. Сначала проверяем доступные API, права и структуру данных. Затем согласуем, что передаётся, где создаётся карточка и как команда узнаёт о проблемах обмена."
+        },
+        {
+          "q": "Как определяются стоимость и срок?",
+          "a": "Они зависят от количества процессов и подключений, качества исходных данных, объёма переноса и требований к доступам. После разбора задачи подготовим состав работ, этапы и оценку. Лицензии и расходы сторонних сервисов укажем отдельно."
+        },
+        {
+          "q": "Что нужно подготовить для первого разговора?",
+          "a": "Достаточно описания того, откуда приходят заявки, кто с ними работает и на каком шаге возникает сложность. Можно показать обезличенный пример карточки или таблицы. Доступы к рабочим системам на первом разговоре не требуются."
+        },
+        {
+          "q": "Как вы подтверждаете результат внедрения?",
+          "a": "До запуска согласуем показатели и способ измерения. После запуска сравним сопоставимые периоды: скорость реакции, полноту карточек, долю заявок со следующим действием. Рост продаж зависит также от предложения, трафика и работы команды, поэтому не подменяем эти факторы обещанием универсального процента."
+        }
+      ],
+      "metrics": [
+        {
+          "label": "Время до первого действия",
+          "unit": "мин",
+          "method": "От поступления заявки до первого зафиксированного действия менеджера за согласованный период."
+        },
+        {
+          "label": "Заявки со следующим шагом",
+          "unit": "%",
+          "method": "Доля активных обращений, у которых есть ответственный и запланированное действие."
+        },
+        {
+          "label": "Полнота клиентских карточек",
+          "unit": "%",
+          "method": "Доля карточек с согласованным набором заполненных обязательных полей."
+        }
+      ],
+      "ctaTitle": "Начнём с вашей воронки.",
+      "ctaText": "Расскажите, откуда приходят заявки и где теряется контекст. Разберём процесс и предложим, какие этапы и связи стоит настроить в первую очередь."
+    },
+    "en": {
+      "title": "CRM & Integrations",
+      "kicker": "Customers · Sales · Next steps",
+      "headline": "Every enquiry.\nOne connected flow.",
+      "description": "MIRWINK designs and implements CRM workflows around the way your team works. We connect your website, Telegram and customer records so each enquiry has context, an owner and a clear next step.",
+      "problems": [
+        {
+          "title": "Enquiries arrive everywhere",
+          "text": "Website forms, private conversations and spreadsheets create several versions of the same story. We bring agreed sources into a shared process with clear routing rules."
+        },
+        {
+          "title": "Nobody owns the next step",
+          "text": "A deal can have a status without a planned action. We define ownership, tasks and reminders so handoffs do not depend on someone remembering to follow up."
+        },
+        {
+          "title": "Information is copied by hand",
+          "text": "A contact moves from a chat to a spreadsheet and then into a report. We design integrations, required-field checks and duplicate handling before information enters the workflow."
+        },
+        {
+          "title": "Reports lack context",
+          "text": "An enquiry count alone cannot explain your sales process. We define stages and loss reasons that help the team understand where work is waiting and what needs attention."
+        }
+      ],
+      "scenarios": [
+        {
+          "title": "Website enquiry → owner",
+          "text": "A form passes contact details and the selected service. The CRM creates or updates a record, keeps the source, assigns an owner and schedules the next action."
+        },
+        {
+          "title": "Telegram → shared history",
+          "text": "A bot gathers the relevant details and passes the request into your CRM. The team receives the context; the customer receives a clear confirmation and a way to continue the conversation."
+        },
+        {
+          "title": "Sales → delivery",
+          "text": "An agreed stage creates a task for the next person. Relevant fields and decisions travel with it, with checks that help prevent work starting from incomplete information."
+        },
+        {
+          "title": "Returning enquiry → existing customer",
+          "text": "Contact matching rules help keep a new request from becoming an unnecessary duplicate. The history remains available to team members with the appropriate permissions."
+        }
+      ],
+      "deliverables": [
+        {
+          "title": "Your workflow, mapped",
+          "text": "Defined stages, transition rules and required fields. The system reflects how you sell and deliver instead of forcing the team into an arbitrary template."
+        },
+        {
+          "title": "Structured customer records",
+          "text": "A structure for contacts, organisations and opportunities. Before import, we agree sources, review data quality and define duplicate resolution rules."
+        },
+        {
+          "title": "Connected channels",
+          "text": "Integrations with website forms, Telegram and agreed services. Each connection has a defined data contract, API constraints and failure behaviour."
+        },
+        {
+          "title": "Tasks and notifications",
+          "text": "Ownership, follow-up tasks and relevant event notifications. Clear rules can be automated; exceptions have a route to a person."
+        },
+        {
+          "title": "Access and checks",
+          "text": "Role-based permissions, an agreed approach to customer data and verification of key workflows. Your team knows who can view or change information."
+        },
+        {
+          "title": "A practical handover",
+          "text": "Working instructions, a walkthrough of everyday tasks and a list of connections. Support, updates and further development are scoped separately."
+        }
+      ],
+      "process": [
+        {
+          "title": "Understand the enquiry journey",
+          "text": "Review sources, existing CRM or spreadsheets, and team responsibilities. Select the first workflow and agree how its outcome will be measured."
+        },
+        {
+          "title": "Design the logic",
+          "text": "Agree stages, fields, access and data exchange. Before implementation, show how an enquiry will move through the system."
+        },
+        {
+          "title": "Build and verify",
+          "text": "Configure the CRM, connect channels and check ordinary and failure scenarios: repeat submissions, incomplete data, unavailable integrations and handoffs."
+        },
+        {
+          "title": "Launch with the team",
+          "text": "Run an agreed rollout, train the team and compare measurements with the baseline. Choose the next improvements from observed workflow needs."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do we have to replace our current CRM?",
+          "a": "Not necessarily. We first review what works, what is missing and which integrations are available. Adjusting stages and connecting existing tools may be enough. A migration should solve a specific problem and justify its cost."
+        },
+        {
+          "q": "Which CRM do you use?",
+          "a": "Twenty is one possible foundation. The platform, hosting and connections are selected after reviewing requirements. Compatibility, licences and third-party running costs are clarified before implementation."
+        },
+        {
+          "q": "Can you connect our website and Telegram?",
+          "a": "Yes, this is a core use case. We first check available APIs, permissions and data structures. Then we agree what is transferred, where records are created and how the team learns about integration failures."
+        },
+        {
+          "q": "How are cost and delivery time determined?",
+          "a": "They depend on workflows, connections, source data quality, migration scope and access requirements. After the discovery conversation, we provide a scope, milestones and estimate. Third-party licences and running costs are listed separately."
+        },
+        {
+          "q": "What should we prepare for the first conversation?",
+          "a": "Describe where enquiries come from, who works on them and where the process becomes difficult. An anonymised record or spreadsheet can help. Access to production systems is not needed for the first conversation."
+        },
+        {
+          "q": "How do you measure the outcome?",
+          "a": "Before rollout, we agree metrics and a measurement method. Afterwards, we compare comparable periods: response time, record completeness and enquiries with a next step. Sales also depend on the offer, traffic and team, so we do not promise a universal percentage."
+        }
+      ],
+      "metrics": [
+        {
+          "label": "Time to first action",
+          "unit": "min",
+          "method": "Time from an incoming enquiry to the first recorded action within an agreed measurement period."
+        },
+        {
+          "label": "Enquiries with a next step",
+          "unit": "%",
+          "method": "Share of active enquiries with an owner and a scheduled action."
+        },
+        {
+          "label": "Customer record completeness",
+          "unit": "%",
+          "method": "Share of records with all agreed required fields completed."
+        }
+      ],
+      "ctaTitle": "Start with your pipeline.",
+      "ctaText": "Tell us where enquiries come from and where context gets lost. We will review the process and suggest which stages and connections to address first."
+    }
+  }
+}
