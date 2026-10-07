@@ -45,6 +45,7 @@
   }, true);
 
   window.addEventListener('popstate', () => {
+    if (location.hash === previousHash) return;
     if (location.hash) scrollToHash(location.hash);
     else if (previousHash) {
       const scroller = document.querySelector('.custom-scrollbar') || document.scrollingElement;
@@ -53,6 +54,6 @@
     previousHash = location.hash;
   });
   window.addEventListener('load', () => {
-    if (location.hash) scrollToHash(location.hash);
+    if (location.hash && !document.documentElement.dataset.mirwinkScrollRestore) scrollToHash(location.hash);
   }, { once: true });
 })();
