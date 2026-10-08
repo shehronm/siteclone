@@ -4,7 +4,7 @@
 
 `navigation-boot.js` is inlined at the start of the head so history detection runs before the first paint. Back/forward navigation and BFCache restoration mark the document. The homepage suppresses the server-rendered entrance cover with inline CSS; its React intro provider completes synchronously in a layout effect without starting a loader timer. Full reloads and fresh visits retain the original intro.
 
-The existing `service-navigation.js` continues to restore the main scroller and the service preview's inner scroll. The early bootstrap also applies a valid saved position while the document parses. Versioned `*-mirwink-history2.js` chunks suppress repeated text and modal entrances on restored homepage entries. Old immutable chunks remain for already-open clients.
+The existing `service-navigation.js` continues to restore the main scroller and the service preview's inner scroll. Mutation and resize observers apply the saved offset as previews mount and font/image layout changes. They disconnect after settling or deliberate user input. The early bootstrap also applies a valid saved position while the document parses. Versioned `*-mirwink-history2.js` chunks suppress repeated text and modal entrances on restored homepage entries. Old immutable chunks remain for already-open clients.
 
 ## Secondary pages
 
@@ -16,6 +16,6 @@ Service HTML remains reproducible with `npm run build:services`. Keep the inline
 
 ## Verification
 
-`npm test`: 55 passing tests, including history/fresh/reload distinction, BFCache notification, early restoration, once-only reveals, reduced motion, keyboard focus and existing service navigation.
+`npm test`: 58 passing tests, including history/fresh/reload distinction, BFCache notification, early restoration, once-only reveals, reduced motion, keyboard focus and existing service navigation.
 
 Browser checks: fresh/reload intro present; cold browser Back and Forward show zero entrance-cover frames; main and preview scroll offsets restored; service reveals trigger on scroll. Checked 390 px layout and an English portfolio page. Browser layout-shift totals during local sampled loads stayed below 0.004; transform/opacity reveals do not move layout boxes. Local diagnostics are outside the published project.

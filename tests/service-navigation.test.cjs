@@ -36,6 +36,7 @@ function fixture({ page = '/ru/services/telegram', referrer = '', stored = null,
   const main = new Element();
   main.scrollTop = 4837;
   main.scrollTo = ({ top }) => { main.scrollTop = top; };
+  let modal;
   const document = new Events();
   Object.assign(document, {
     referrer,
@@ -43,7 +44,7 @@ function fixture({ page = '/ru/services/telegram', referrer = '', stored = null,
     readyState: 'complete',
     fonts: { status: 'loaded' },
     querySelector: selector => selector === '[data-service-back]' ? back : null,
-    querySelectorAll: selector => selector === '.custom-scrollbar' ? [main] : [],
+    querySelectorAll: selector => selector === '.custom-scrollbar' ? [main] : selector === '[data-modal]' && modal ? [modal] : [],
   });
   const window = new Events();
   const queue = [];
@@ -70,8 +71,20 @@ function fixture({ page = '/ru/services/telegram', referrer = '', stored = null,
   };
   let saved = stored;
   const frames = [];
+  const observers = [];
+  const sizeObservers = [];
+  class MutationObserver {
+    constructor(callback) { this.callback = callback; observers.push(this); }
+    observe() { this.active = true; }
+    disconnect() { this.active = false; }
+  }
+  class ResizeObserver {
+    constructor(callback) { this.callback = callback; sizeObservers.push(this); }
+    observe() { this.active = true; }
+    disconnect() { this.active = false; }
+  }
   const context = vm.createContext({
-    URL, Date, Number, Element, location, history, document, window,
+    URL, Date, Number, Element, MutationObserver, ResizeObserver, location, history, document, window,
     sessionStorage: { getItem: () => saved, setItem: (_key, value) => { saved = value; } },
     performance: { getEntriesByType: () => [{ type: navigation }], now: () => 0 },
     requestAnimationFrame: callback => { frames.push(callback); },
@@ -82,6 +95,19 @@ function fixture({ page = '/ru/services/telegram', referrer = '', stored = null,
     get backCalls() { return backCalls; },
     get saved() { return saved; },
     get scheduledRestores() { return frames.length; },
+    resizeMain(top) {
+      main.scrollTop = top;
+      for (const observer of sizeObservers) if (observer.active) observer.callback();
+    },
+    mountModal(name) {
+      modal = new Element();
+      modal.dataset = { modal: name };
+      modal.scrollTop = 0;
+      modal.querySelector = () => null;
+      modal.scrollTo = ({ top }) => { modal.scrollTop = top; };
+      for (const observer of observers) if (observer.active) observer.callback();
+      return modal;
+    },
     hash(value) {
       url = new URL(value, url);
       entries.splice(index + 1);
@@ -177,4 +203,28 @@ test('invalid modal coordinates cannot start a restore loop on reload', () => {
   const app = fixture({ page: '/ru', stored, navigation: 'reload' });
   assert.equal(app.scheduledRestores, 0);
   assert.equal(app.main.scrollTop, 4837);
+});
+
+test('restored preview receives its saved position on mount before the next animation frame', () => {
+  const saved = { url: '/ru', top: 5550, at: Date.now(), modal: { name: 'connected-crm', top: 849 } };
+  const app = fixture({ page: '/ru', navigation: 'back_forward', stored: JSON.stringify({ entries: { '/ru': saved } }) });
+  assert.equal(app.main.scrollTop, 5550, 'existing page position is restored synchronously');
+  assert.equal(app.mountModal('connected-crm').scrollTop, 849, 'new preview is positioned in the mutation phase');
+});
+
+test('deliberate scrolling cancels the pre-paint restoration observer', () => {
+  const saved = { url: '/ru', top: 5550, at: Date.now(), modal: { name: 'connected-crm', top: 849 } };
+  const app = fixture({ page: '/ru', navigation: 'back_forward', stored: JSON.stringify({ entries: { '/ru': saved } }) });
+  app.document.emit('wheel');
+  assert.equal(app.mountModal('connected-crm').scrollTop, 0);
+});
+
+test('content size changes restore the position before paint until the visitor scrolls', () => {
+  const saved = { url: '/ru', top: 5550, at: Date.now() };
+  const app = fixture({ page: '/ru', navigation: 'back_forward', stored: JSON.stringify({ entries: { '/ru': saved } }) });
+  app.resizeMain(2400);
+  assert.equal(app.main.scrollTop, 5550);
+  app.document.emit('wheel');
+  app.resizeMain(2400);
+  assert.equal(app.main.scrollTop, 2400, 'resizing no longer overrides deliberate user navigation');
 });

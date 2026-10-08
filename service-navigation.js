@@ -51,12 +51,31 @@
 
   let restoring = false;
   let restoreRun = 0;
+  let restoreObserver;
+  let restoreSizeObserver;
+  const disconnectRestoreObserver = () => {
+    restoreObserver?.disconnect(); restoreObserver = null;
+    restoreSizeObserver?.disconnect(); restoreSizeObserver = null;
+  };
   function restore(snapshot) {
     if (!valid(snapshot) || snapshot.url !== here()) return;
+    disconnectRestoreObserver();
     document.documentElement.dataset.mirwinkScrollRestore = 'true';
     restoring = true;
     const run = ++restoreRun, started = performance.now();
     let stableSince = 0;
+    const observedSizes = new WeakSet();
+    const watchSize = el => {
+      if (!el || !restoreSizeObserver || observedSizes.has(el)) return;
+      observedSizes.add(el); restoreSizeObserver.observe(el);
+    };
+    const watchContent = el => {
+      watchSize(el);
+      for (const child of el?.children || []) {
+        watchSize(child);
+        for (const content of child.children || []) watchSize(content);
+      }
+    };
     const move = (el, top) => {
       if (!el) return false;
       if (Math.abs(el.scrollTop - top) > 1) {
@@ -67,19 +86,36 @@
       }
       return Math.abs(el.scrollTop - top) <= 1;
     };
-    const frame = () => {
-      if (run !== restoreRun || here() !== snapshot.url) { restoring = false; return; }
+    const position = () => {
       const main = mainScroller();
+      watchContent(main);
       let settled = move(main, snapshot.top) && !!main?.__mirwinkLenis;
       if (snapshot.modal) {
         const modal = [...document.querySelectorAll('[data-modal]')].find(el => el.dataset.modal === snapshot.modal.name);
+        watchContent(modalScroller(modal));
         settled = move(modalScroller(modal), snapshot.modal.top) && !!modal && settled;
       }
-      settled = settled && document.readyState === 'complete' && document.fonts.status === 'loaded';
+      return settled;
+    };
+    // React mounts the preview after the static document has parsed. Apply its
+    // saved offset in the mutation microtask, before the browser paints it at 0.
+    const positionIfCurrent = () => { if (run === restoreRun && here() === snapshot.url) position(); };
+    // Font/image layout can change scrollHeight without inserting DOM nodes.
+    // ResizeObserver runs after layout and before paint, unlike the next RAF.
+    if (typeof ResizeObserver === 'function') restoreSizeObserver = new ResizeObserver(positionIfCurrent);
+    if (typeof MutationObserver === 'function') {
+      restoreObserver = new MutationObserver(positionIfCurrent);
+      restoreObserver.observe(document, { childList: true, subtree: true });
+    }
+    position();
+    const frame = () => {
+      if (run !== restoreRun) return;
+      if (here() !== snapshot.url) { restoring = false; disconnectRestoreObserver(); return; }
+      const settled = position() && document.readyState === 'complete' && document.fonts.status === 'loaded';
       if (!settled) stableSince = 0;
       else if (!stableSince) stableSince = performance.now();
       if ((stableSince && performance.now() - stableSince > 500) || performance.now() - started > 6000) {
-        restoring = false; return;
+        restoring = false; disconnectRestoreObserver(); return;
       }
       requestAnimationFrame(frame);
     };
@@ -90,7 +126,7 @@
     const initial = snapshotForEntry();
     if (initial) restore(initial);
     // Respect deliberate user scrolling instead of repeatedly dragging them back.
-    const cancel = () => { restoring = false; restoreRun++; };
+    const cancel = () => { restoring = false; restoreRun++; disconnectRestoreObserver(); };
     document.addEventListener('wheel', cancel, { passive: true });
     document.addEventListener('touchstart', cancel, { passive: true });
     document.addEventListener('keydown', event => {
