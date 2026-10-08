@@ -67,5 +67,5 @@
  // Sample choices must be reviewed again after the underlying inputs change.
  all('form').forEach(form=>{form.addEventListener('input',()=>invalidate(form));form.addEventListener('change',()=>invalidate(form));});
  all('.demo-fields').forEach(fieldset=>fieldset.disabled=false);
- if('IntersectionObserver'in window&&!matchMedia('(prefers-reduced-motion:reduce)').matches){document.documentElement.classList.add('has-motion');const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.08});all('.reveal').forEach(e=>observer.observe(e));}
+ // Scroll reveals are shared with all secondary pages in /scroll-reveal.js.
 })();
