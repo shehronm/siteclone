@@ -7,6 +7,8 @@ const contact = require('../api/contact.js');
 const savedEnvironment = {};
 const validBody = () => ({
   name: 'Test visitor',
+  phone: '+992901234567',
+  telegram: '',
   email: 'visitor@example.com',
   topic: 'Website or digital product',
   message: 'A local automated test enquiry.',
@@ -111,7 +113,10 @@ test('server validates field types, lengths, email, topic and whitespace', async
   const mock = blockNetwork(t);
   const invalid = [
     { name: 'A' }, { name: '   ' }, { name: 'A'.repeat(101) }, { name: 'Name\nInjected line' }, { name: 42 },
-    { email: 'invalid' }, { email: 'a@@example.com' }, { email: 'test@example.com\nInjected' }, { email: 'a'.repeat(255) }, { email: [] },
+    { phone: '' }, { phone: '   ' }, { phone: '992901234567' }, { phone: '+123' }, { phone: '+'.concat('1'.repeat(16)) },
+    { phone: '+992abc1234567' }, { phone: '++992901234567' }, { phone: '+0 901234567' }, { phone: '42' }, { phone: null }, { phone: {} }, { phone: [] }, { phone: ' +992\n901234567 ' },
+    { telegram: 'bad handle' }, { telegram: '@abc' }, { telegram: '@'.concat('a'.repeat(33)) }, { telegram: 'hello\nInjected' }, { telegram: 5 }, { telegram: null }, { telegram: [] },
+    { email: 'invalid' }, { email: 'a@@example.com' }, { email: 'test@example.com\nInjected' }, { email: 'a'.repeat(255) }, { email: [] }, { email: null }, { email: {} }, { email: 42 },
     { topic: 'Unknown topic' }, { topic: null },
     { message: 'short' }, { message: '          ' }, { message: 'x'.repeat(2001) }, { message: {} },
   ];
@@ -121,6 +126,55 @@ test('server validates field types, lengths, email, topic and whitespace', async
     assert.equal(response.body.ok, false);
   }
   assert.equal(mock.mock.callCount(), 0);
+});
+
+test('phone is required and cannot be omitted from an otherwise valid request', async t => {
+  const mock = blockNetwork(t);
+  const noPhone = validBody();
+  delete noPhone.phone;
+  assert.equal((await request(noPhone)).statusCode, 400);
+  assert.equal(mock.mock.callCount(), 0);
+});
+
+test('international phone formats are normalized and optional Telegram is included', async t => {
+  const captured = [];
+  t.mock.method(globalThis, 'fetch', async (_url, options) => {
+    captured.push(JSON.parse(options.body).text);
+    return { ok: true, status: 200, json: async () => ({ ok: true }) };
+  });
+  for (const [phone, telegram, expected] of [
+    ['+992 90 123 45 67', '@mirwink_user', 'Телефон: +992901234567'],
+    ['+7 (999) 123-45-67', 'https://t.me/mirwink_user', 'Телефон: +79991234567'],
+    ['+1 202-555-0123', 't.me/mirwink_user', 'Телефон: +12025550123'],
+    ['+44 7911 123456', undefined, 'Телефон: +447911123456'],
+    ['+998 90 123 45 67', '', 'Телефон: +998901234567'],
+  ]) {
+    const payload = { ...validBody(), phone };
+    if (telegram === undefined) delete payload.telegram;
+    else payload.telegram = telegram;
+    assert.equal((await request(payload)).statusCode, 200);
+    assert.ok(captured.at(-1).includes(expected));
+    assert.ok(captured.at(-1).includes(`Telegram: ${telegram || 'не указан'}`));
+  }
+  assert.equal(captured.length, 5);
+});
+
+test('missing, empty and whitespace-only email deliver with an explicit fallback', async t => {
+  const capturedTexts = [];
+  const mock = t.mock.method(globalThis, 'fetch', async (url, options) => {
+    assert.match(url, /^https:\/\/api\.telegram\.org\/bot/);
+    capturedTexts.push(JSON.parse(options.body).text);
+    return { ok: true, status: 200, json: async () => ({ ok: true }) };
+  });
+  const missing = validBody();
+  delete missing.email;
+  for (const body of [missing, { ...validBody(), email: '' }, { ...validBody(), email: '   ' }]) {
+    const response = await request(body);
+    assert.equal(response.statusCode, 200);
+    assert.deepEqual(response.body, { ok: true, message: 'Sent' });
+  }
+  assert.equal(mock.mock.callCount(), 3);
+  assert.deepEqual(capturedTexts, Array(3).fill('Новая заявка · MIRWINK\nИмя: Test visitor\nТелефон: +992901234567\nTelegram: не указан\nEmail: не указан\nПроект: Website or digital product\n\nA local automated test enquiry.'));
 });
 
 test('honeypot acknowledges without sending or requiring credentials', async t => {
@@ -158,7 +212,7 @@ test('successful provider acknowledgement yields the explicit JSON success contr
     assert.equal(payload.chat_id, '-100123456789');
     assert.equal(payload.link_preview_options.is_disabled, true);
     assert.equal(payload.parse_mode, undefined, 'user content is plain text');
-    assert.equal(payload.text, 'Новая заявка · MIRWINK\nИмя: Test visitor\nEmail: visitor@example.com\nПроект: Website or digital product\n\nA local automated test enquiry.');
+    assert.equal(payload.text, 'Новая заявка · MIRWINK\nИмя: Test visitor\nТелефон: +992901234567\nTelegram: не указан\nEmail: visitor@example.com\nПроект: Website or digital product\n\nA local automated test enquiry.');
     return { ok: true, status: 200, json: async () => ({ ok: true, result: { message_id: 1 } }) };
   });
   const response = await request({ ...validBody(), name: '  Test visitor ', email: ' visitor@example.com ', message: ' A local automated test enquiry. ' }, { headers: { 'content-type': 'application/json; charset=utf-8' } });

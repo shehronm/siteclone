@@ -64,12 +64,27 @@ module.exports = async function contact(req, res) {
   if (body.website) return reply(res, 200, 'OK');
 
   const name = typeof body.name === 'string' ? body.name.trim() : '';
+  // The phone is mandatory; only an explicitly international number is valid.
+  const phoneInput = typeof body.phone === 'string' ? body.phone.trim() : '';
+  const normalizedPhone = '+' + phoneInput.replace(/\D/g, '');
+  const validPhone = /^\+[1-9][\d ()-]*$/.test(phoneInput) && /^\+[1-9]\d{7,14}$/.test(normalizedPhone) && phoneInput.length <= 32;
+  // Telegram is optional, but when supplied it must identify a user or profile.
+  if (body.telegram !== undefined && typeof body.telegram !== 'string') {
+    return reply(res, 400, 'Please check the form fields');
+  }
+  const telegram = typeof body.telegram === 'string' ? body.telegram.trim() : '';
+  const validTelegram = !telegram || /^(?:@?[a-zA-Z0-9_]{5,32}|(?:https?:\/\/)?t\.me\/[a-zA-Z0-9_]{5,32}\/?)$/.test(telegram);
+  // An omitted email is valid; a supplied email must still be a string.
+  if (body.email !== undefined && typeof body.email !== 'string') {
+    return reply(res, 400, 'Please check the form fields');
+  }
   const email = typeof body.email === 'string' ? body.email.trim() : '';
   const message = typeof body.message === 'string' ? body.message.trim() : '';
   const { topic } = body;
   if (
     name.length < 2 || name.length > 100 || /[\r\n\x00-\x1f\x7f]/.test(name) ||
-    email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+    !validPhone || !validTelegram || telegram.length > 128 ||
+    email.length > 254 || (email !== '' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) ||
     typeof topic !== 'string' || !TOPICS.has(topic) ||
     message.length < 10 || message.length > 2000
   ) return reply(res, 400, 'Please check the form fields');
@@ -84,7 +99,9 @@ module.exports = async function contact(req, res) {
   const text = [
     'Новая заявка · MIRWINK',
     `Имя: ${name}`,
-    `Email: ${email}`,
+    `Телефон: ${normalizedPhone}`,
+    `Telegram: ${telegram || 'не указан'}`,
+    `Email: ${email || 'не указан'}`,
     `Проект: ${topic}`,
     '',
     message,

@@ -4,16 +4,16 @@
   // Copy describes visible product paths, not unverified client metrics or delivery dates.
   const cases = {
     piptan: {
-      en: ['Task', 'Make it easier to move from understanding the property offer to contacting an advisor.', 'Solution', 'Company information, available opportunities, editorial content and clear contact routes sit in one journey.', 'Result visible in the product', 'Visitors can explore the offer and open a direct enquiry from the relevant page.'],
-      ru: ['Задача', 'Сделать путь от знакомства с объектами до обращения к консультанту понятнее.', 'Решение', 'Объединены информация о компании, инвестиционные предложения, полезные материалы и способы связи.', 'Что можно проверить', 'Посетитель может изучить предложение и перейти к прямому обращению с нужной страницы.'],
+      en: ['Task', 'Make it easier to move from understanding the property offer to contacting an advisor.', 'Solution', 'Company information, available opportunities, editorial content and clear contact routes sit in one journey.', 'What the interface supports', 'Visitors can explore the offer and open a direct enquiry from the relevant page.'],
+      ru: ['Задача', 'Сделать путь от знакомства с объектами до обращения к консультанту понятнее.', 'Решение', 'Объединены информация о компании, инвестиционные предложения, полезные материалы и способы связи.', 'Результат в интерфейсе', 'Посетитель может изучить предложение и перейти к прямому обращению с нужной страницы.'],
     },
     haar: {
-      en: ['Task', 'Help a salon customer choose the right service and a convenient appointment.', 'Solution', 'Service options, specialist, location and time are presented as one booking journey.', 'Result visible in the product', 'Service selection, appointments and account tools are connected in a single booking flow.'],
-      ru: ['Задача', 'Помочь клиенту салона выбрать услугу и удобное время без лишних шагов.', 'Решение', 'Выбор услуги, мастера, локации и времени объединён в один сценарий записи.', 'Что можно проверить', 'Выбор услуги, запись и инструменты личного кабинета объединены в последовательный сценарий.'],
+      en: ['Task', 'Help a salon customer choose the right service and a convenient appointment.', 'Solution', 'Service options, specialist, location and time are presented as one booking journey.', 'What the interface supports', 'Service selection, appointments and account tools are connected in a single booking flow.'],
+      ru: ['Задача', 'Помочь клиенту салона выбрать услугу и удобное время без лишних шагов.', 'Решение', 'Выбор услуги, мастера, локации и времени объединён в один сценарий записи.', 'Результат в интерфейсе', 'Выбор услуги, запись и инструменты личного кабинета объединены в последовательный сценарий.'],
     },
     krema: {
-      en: ['Task', 'Make choosing specialty coffee understandable without losing product details.', 'Solution', 'Catalogue filters, flavour profiles, grind and weight options, cart and checkout form one sequence.', 'Result visible in the product', 'Customers can compare products, choose grind and weight, and keep their selection in the cart.'],
-      ru: ['Задача', 'Помочь покупателю выбрать кофе, сохранив важные детали о продукте.', 'Решение', 'Фильтры, вкусовые профили, выбор помола и веса, корзина и оформление собраны в последовательный сценарий.', 'Что можно проверить', 'Покупатели могут сравнивать товары, выбирать помол и вес и сохранять свой выбор в корзине.'],
+      en: ['Task', 'Make choosing specialty coffee understandable without losing product details.', 'Solution', 'Catalogue filters, flavour profiles, grind and weight options, cart and checkout form one sequence.', 'What the interface supports', 'Customers can compare products, choose grind and weight, and keep their selection in the cart.'],
+      ru: ['Задача', 'Помочь покупателю выбрать кофе, сохранив важные детали о продукте.', 'Решение', 'Фильтры, вкусовые профили, выбор помола и веса, корзина и оформление собраны в последовательный сценарий.', 'Результат в интерфейсе', 'Покупатели могут сравнивать товары, выбирать помол и вес и сохранять свой выбор в корзине.'],
     },
     'ai-workspace': {
       en: ['Design brief', 'Turn repeated questions and scattered knowledge into an assistant with a defined purpose.', 'Solution', 'Connect approved sources and tools; define permissions, review points and exception handling.', 'Status', 'AI workspace based on Dust: company knowledge, connected tools and access rules.'],

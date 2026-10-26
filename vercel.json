@@ -3,6 +3,16 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/khujand/index.html",
+      "destination": "/khujand",
+      "permanent": true
+    },
+    {
+      "source": "/ru/khujand/index.html",
+      "destination": "/ru/khujand",
+      "permanent": true
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
@@ -64,6 +74,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/khujand",
+      "destination": "/khujand/index.html"
+    },
+    {
+      "source": "/ru/khujand",
+      "destination": "/ru/khujand/index.html"
+    },
     {
       "source": "/services/ai-workspace",
       "destination": "/services/ai-workspace/index.html"

@@ -15,3 +15,31 @@
 @media(max-width:359px){.service-ai-workspace .hero h1{font-size:17vw}.service-crm .hero h1{font-size:31vw}}
 
 .header-back{display:flex;align-items:center;justify-content:center;gap:9px;flex-shrink:0;min-width:48px;padding:0 20px;margin-right:auto;border-left:var(--line);border-right:var(--line);font-size:14px;white-space:nowrap}.header-back-arrow{font-size:22px;line-height:1}.header-back:hover{background:var(--mint);color:#232323}.header-back:focus-visible{outline-offset:-4px}@media(max-width:600px){.header-back{width:44px;min-width:44px;padding:0}.header-back-label{display:none}}@media(max-width:359px){.header-back{width:40px;min-width:40px}}
+
+/* Local service landing: shared service-page layout, with portfolio examples. */
+.related-grid:has(>a:nth-child(3):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
+.related-grid:has(>a:nth-child(3):last-child) h3{font-size:clamp(28px,3.1vw,45px)}
+@media(max-width:900px){.related-grid:has(>a:nth-child(3):last-child){grid-template-columns:1fr}.related-grid:has(>a:nth-child(3):last-child)>a{border-right:0;border-bottom:var(--line)}.related-grid:has(>a:nth-child(3):last-child)>a:last-child{border-bottom:0}}
+.service-khujand .hero h1{font-size:clamp(40px,4.8vw,82px);line-height:1.05;letter-spacing:-.045em;margin:55px 0 38px;overflow-wrap:normal}
+.service-khujand .hero-kicker{white-space:normal;line-height:1.6}
+.website-map{width:100%;max-width:520px}
+.website-map>.mono{display:block;margin-bottom:20px}
+.website-window{border:var(--line);background:var(--paper);color:var(--ink)}
+.website-toolbar{display:flex;gap:7px;padding:14px 18px;border-bottom:var(--line)}
+.website-toolbar i{width:7px;height:7px;border:1px solid currentColor;border-radius:50%}
+.website-window>strong{display:block;font-size:clamp(28px,3vw,44px);line-height:1.1;letter-spacing:-.035em;margin:30px 24px 18px}
+.website-window>p{font-size:16px;line-height:1.5;margin:0 24px 30px;max-width:28ch}
+.website-flow>div{display:flex;align-items:center;gap:16px;padding:18px 24px;border-top:var(--line);font-size:16px}
+.website-flow>div>span:last-child{margin-left:auto}
+.website-flow>div:last-child{background:var(--mint);color:#232323}
+.local-work-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:var(--line)}
+.local-work-card{display:flex;flex-direction:column;min-width:0;border-right:var(--line)}
+.local-work-card:last-child{border-right:0}
+.local-work-card>img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-bottom:var(--line)}
+.local-work-copy{display:flex;flex:1;flex-direction:column;gap:22px;padding:32px}
+.local-work-copy h3{font-size:40px;line-height:1;letter-spacing:-.035em}
+.local-work-copy>p:not(.eyebrow){font-size:17px;line-height:1.55}
+.local-work-copy>.local-work-note{font-size:14px!important;opacity:.72}
+.local-work-copy>.text-link{margin-top:auto;padding-top:12px}
+@media(max-width:1100px){.local-work-copy{padding:24px}.local-work-copy h3{font-size:32px}}
+@media(max-width:600px){.service-khujand .hero-heading{min-height:360px}.service-khujand .hero h1{font-size:clamp(39px,10.5vw,60px);margin:42px 0 28px}.service-khujand .hero-visual{min-height:410px}.local-work-grid{grid-template-columns:1fr}.local-work-card{border-right:0;border-bottom:var(--line)}.local-work-card:last-child{border-bottom:0}.local-work-copy{padding:26px 20px}.website-window>strong{margin-left:20px;margin-right:20px}.website-flow>div{padding:18px 20px}}

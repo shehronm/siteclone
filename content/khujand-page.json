@@ -1,0 +1,118 @@
+{
+  "ru": {
+    "title": "Создание сайтов в Худжанде",
+    "heroTitle": "Создание сайтов\nв Худжанде",
+    "kicker": "Худжанд · Таджикистан · Работаем онлайн",
+    "headline": "От первой идеи\nдо работающего сайта.",
+    "description": "MIRWINK — студия разработки из Худжанда. Создаём сайты, интернет-магазины и сервисы для бизнеса. Обсуждаем задачи онлайн, показываем работу по этапам и подключаем заявки к нужным инструментам.",
+    "labels": {
+      "whyTitle": "Какой сайт\nнужен вашему бизнесу.",
+      "scenarios": "Примеры задач",
+      "scenariosTitle": "Какие задачи\nрешает сайт.",
+      "scenariosIntro": "Примеры возможных проектов для бизнеса Худжанда. Состав работ уточняем после знакомства с вашей задачей.",
+      "processTitle": "Работаем онлайн.\nДвигаемся по этапам.",
+      "workTitle": "Работы\nиз портфолио.",
+      "workIntro": "Посмотрите интерфейсы и пользовательские сценарии: от знакомства с услугой до записи или выбора товара.",
+      "workLink": "Посмотреть проект",
+      "diagram": "От посетителя к обращению",
+      "relatedTitle": "Что ещё\nможно подключить."
+    },
+    "problems": [
+      { "title": "Лендинг для услуги", "text": "Одна услуга, понятное предложение и следующий шаг: оставить заявку, написать или записаться. Подходит для запуска нового направления и рекламной кампании." },
+      { "title": "Сайт компании", "text": "Услуги, проекты, ответы на вопросы и контакты в одном месте. Помогаем посетителю разобраться в предложении и выбрать, с какой задачей обратиться." },
+      { "title": "Каталог или интернет-магазин", "text": "Карточки товаров, категории, фильтры и корзина. Способы оформления, оплаты и доставки выбираем под ваш процесс и возможности подключаемых сервисов." }
+    ],
+    "scenarios": [
+      { "title": "Салон: от услуги к записи", "text": "Пример задачи: показать услуги и мастеров, помочь выбрать время и отправить заявку. Если нужна автоматическая запись, проверяем расписание, правила отмены и подходящий сервис бронирования." },
+      { "title": "Магазин: от каталога к заказу", "text": "Пример задачи: собрать товары с фотографиями, характеристиками и вариантами. Покупатель выбирает нужное и передаёт заказ; команда получает его в согласованном канале." },
+      { "title": "Учебный центр: от курса к обращению", "text": "Пример задачи: объяснить программу, формат занятий и условия поступления. Форма собирает интерес к конкретному курсу, а заявка поступает администратору или в CRM." }
+    ],
+    "deliverables": [
+      { "title": "Структура и тексты", "text": "Разбираем предложение, собираем страницы и помогаем объяснить услуги. Согласуем материалы, которые потребуются от вашей команды." },
+      { "title": "Дизайн интерфейса", "text": "Проектируем внешний вид и путь посетителя: где найти информацию, посмотреть работу и обратиться. Согласуем ключевые экраны до разработки." },
+      { "title": "Адаптация для телефона", "text": "Проверяем меню, изображения, формы и чтение текста на разных размерах экрана. Посетитель должен выполнить задачу и с телефона, и с компьютера." },
+      { "title": "Формы и интеграции", "text": "Настраиваем согласованный способ получения заявок. При необходимости связываем сайт с Telegram, CRM или сервисом записи." },
+      { "title": "Подготовка к поиску", "text": "Настраиваем заголовки и описания страниц, карту сайта и доступность для поисковых роботов. Отдельно проверяем адреса и ссылки языковых версий." },
+      { "title": "Запуск и передача", "text": "Проверяем ссылки, формы и основные сценарии, подключаем домен. Согласуем, как обновлять материалы и какие задачи войдут в дальнейшее сопровождение." }
+    ],
+    "process": [
+      { "title": "Знакомимся с задачей", "text": "Напишите в Telegram или заполните форму. Расскажите о бизнесе, нужном результате и существующем сайте, если он есть." },
+      { "title": "Согласуем объём", "text": "Определяем страницы, функции и необходимые материалы. После этого обсуждаем стоимость, сроки и порядок согласований." },
+      { "title": "Показываем по этапам", "text": "Обсуждаем структуру и дизайн, затем показываем рабочую версию. Собираем обратную связь в переписке и на созвонах." },
+      { "title": "Проверяем и запускаем", "text": "Проходим путь посетителя, проверяем отправку заявок и отображение на телефоне. Передаём доступы и инструкции по согласованному объёму." }
+    ],
+    "works": [
+      { "name": "PIPTAN", "type": "Сайт недвижимости", "image": "/assets/miro/piptan.svg", "alt": "Обложка проекта PIPTAN из портфолио MIRWINK", "text": "Информация о компании, предложения недвижимости и материалы для покупателей. Контакт с консультантом доступен с подходящей страницы.", "note": "Сайт проекта открывается в новой вкладке.", "href": "https://piptan.ae/" },
+      { "name": "HAAR", "type": "Сайт салона и онлайн-запись", "image": "/assets/miro/haar.svg", "alt": "Обложка проекта HAAR из портфолио MIRWINK", "text": "Выбор услуги, мастера, локации и времени объединён в последовательный путь. Интерфейс помогает перейти от знакомства с салоном к записи.", "note": "Доступность времени и оплаты зависит от настройки подключённого салона.", "href": "https://template-haar.vercel.app/" },
+      { "name": "KREMA", "type": "Интернет-магазин кофе", "image": "/assets/miro/krema.svg", "alt": "Обложка проекта KREMA из портфолио MIRWINK", "text": "Каталог с фильтрами, вкусовые профили, выбор помола и веса. Покупатель сравнивает товары и собирает корзину перед оформлением.", "note": "Версия портфолио показывает сценарий оформления без реальной оплаты и создания заказа.", "href": "https://krema-coffee.vercel.app/" }
+    ],
+    "faq": [
+      { "q": "Есть ли у MIRWINK офис в Худжанде?", "a": "Работаем из Худжанда в онлайн-формате. Офиса для приёма клиентов нет. Обсуждаем проект в переписке и на созвонах, показываем материалы и рабочие версии по ссылке." },
+      { "q": "Сколько стоит создание сайта?", "a": "Стоимость зависит от количества страниц, дизайна, функций и интеграций. Пришлите описание задачи и примеры: после уточнения объёма сможем подготовить предложение. Домен, хостинг и платные сервисы обсуждаем отдельно." },
+      { "q": "Какие сроки разработки?", "a": "Срок определяем после согласования задач и материалов. Простой сайт услуги и магазин с интеграциями требуют разного объёма работы. Этапы и сроки фиксируем до начала разработки." },
+      { "q": "Можно ли улучшить уже существующий сайт?", "a": "Да. Начинаем с просмотра сайта и ваших задач. Определяем, что можно доработать: структуру, мобильную версию, тексты, формы или интеграции. Затем согласуем конкретный список изменений." },
+      { "q": "Вы работаете только с Худжандом?", "a": "Мы находимся в Худжанде и можем вести проект онлайн с заказчиком из другого города. Способы связи, языки контента и порядок согласований обсуждаем перед началом." },
+      { "q": "Можно ли подключить CRM, Telegram или AI?", "a": "Да, эти направления есть у MIRWINK. Сначала определяем, какую задачу нужно решить: получать заявки, вести клиентов или работать с информацией. Возможность интеграции зависит от выбранных систем и доступных подключений." }
+    ],
+    "ctaTitle": "Расскажите, какой сайт вам нужен.",
+    "ctaText": "Напишите о своём бизнесе, задаче и желаемом результате. Если сайт уже есть, пришлите ссылку. Обсудим объём работы и следующие шаги онлайн."
+  },
+  "en": {
+    "title": "Web development in Khujand",
+    "heroTitle": "Web development\nin Khujand",
+    "kicker": "Khujand · Tajikistan · Working online",
+    "headline": "From your first idea\nto a working website.",
+    "description": "MIRWINK is a development studio based in Khujand, Tajikistan. We build websites, online stores and business tools. We discuss projects online, share work in stages and connect enquiries to the tools your team uses.",
+    "labels": {
+      "whyTitle": "The right website\nfor your business.",
+      "scenarios": "Example briefs",
+      "scenariosTitle": "What your website\ncan help with.",
+      "scenariosIntro": "Examples of possible projects for businesses in Khujand. We agree the scope after learning about your specific needs.",
+      "processTitle": "Working online.\nBuilding in stages.",
+      "workTitle": "Work from\nour portfolio.",
+      "workIntro": "Explore interfaces and customer journeys: from discovering a service to booking or selecting a product.",
+      "workLink": "View project",
+      "diagram": "From a visit to an enquiry",
+      "relatedTitle": "Tools to connect\nto your website."
+    },
+    "problems": [
+      { "title": "A landing page for a service", "text": "One service, a clear offer and a next step: send an enquiry, get in touch or book. A focused format for a new offer or advertising campaign." },
+      { "title": "A company website", "text": "Services, work, useful answers and contact details in one place. Help visitors understand your offer and decide what to discuss with your team." },
+      { "title": "A catalogue or online store", "text": "Product pages, categories, filters and a cart. Ordering, payment and delivery options depend on your process and the services we agree to connect." }
+    ],
+    "scenarios": [
+      { "title": "A salon: from service to booking", "text": "Example brief: introduce services and specialists, help visitors choose a time and send a request. For automated booking, we check availability, cancellation rules and a suitable scheduling service." },
+      { "title": "A shop: from catalogue to order", "text": "Example brief: present products with photos, specifications and variants. Customers select what they need and submit an order; the team receives it through the agreed channel." },
+      { "title": "A learning centre: from course to enquiry", "text": "Example brief: explain the programme, class format and entry requirements. A form captures interest in a specific course and sends the request to an administrator or CRM." }
+    ],
+    "deliverables": [
+      { "title": "Structure and copy", "text": "Review your offer, organise pages and help explain the services. Agree which materials your team will provide." },
+      { "title": "Interface design", "text": "Design the visual presentation and visitor journey: finding information, exploring work and getting in touch. Agree the key screens before development." },
+      { "title": "A responsive website", "text": "Check navigation, images, forms and readability at different screen sizes. Visitors should be able to complete their task on phones and computers." },
+      { "title": "Forms and integrations", "text": "Set up the agreed enquiry channel. Connect Telegram, a CRM or a booking service when the project calls for it." },
+      { "title": "Search foundations", "text": "Configure page titles, descriptions, a sitemap and crawler access. Check the URLs and links between language versions." },
+      { "title": "Launch and handover", "text": "Check links, forms and key journeys, then connect the domain. Agree how content will be updated and what ongoing support covers." }
+    ],
+    "process": [
+      { "title": "Discuss the task", "text": "Contact us on Telegram or use the form. Describe your business, the outcome you need and your current website, if you have one." },
+      { "title": "Agree the scope", "text": "Define the pages, features and materials. Then discuss pricing, timing and how reviews and approvals will work." },
+      { "title": "Review work in stages", "text": "Discuss structure and design, then explore a working version. Share feedback through messages and calls." },
+      { "title": "Check and launch", "text": "Follow the visitor journey, check enquiry delivery and test the mobile layout. Hand over access and instructions for the agreed scope." }
+    ],
+    "works": [
+      { "name": "PIPTAN", "type": "Property website", "image": "/assets/miro/piptan.svg", "alt": "PIPTAN project cover from the MIRWINK portfolio", "text": "Company information, property opportunities and buyer resources. Visitors can contact an advisor from a relevant page.", "note": "The project website opens in a new tab.", "href": "https://piptan.ae/" },
+      { "name": "HAAR", "type": "Salon website and booking", "image": "/assets/miro/haar.svg", "alt": "HAAR project cover from the MIRWINK portfolio", "text": "Service, specialist, location and time selection form a connected journey. The interface takes visitors from exploring the salon to booking.", "note": "Appointment and payment availability depend on the connected salon configuration.", "href": "https://template-haar.vercel.app/" },
+      { "name": "KREMA", "type": "Coffee online store", "image": "/assets/miro/krema.svg", "alt": "KREMA project cover from the MIRWINK portfolio", "text": "A filtered catalogue, flavour profiles, grind and weight options. Customers compare products and build a cart before checkout.", "note": "The portfolio version demonstrates checkout without taking a real payment or creating an order.", "href": "https://krema-coffee.vercel.app/" }
+    ],
+    "faq": [
+      { "q": "Does MIRWINK have an office in Khujand?", "a": "We work from Khujand online and do not have a client-facing office. We discuss projects through messages and calls and share designs and working versions by link." },
+      { "q": "How much does a website cost?", "a": "Pricing depends on the pages, design, features and integrations. Send a brief and examples so we can clarify the scope and prepare a proposal. Domain, hosting and paid services are discussed separately." },
+      { "q": "How long does development take?", "a": "We agree a timeline after reviewing the scope and materials. A service landing page and a store with integrations require different amounts of work. Stages and timing are agreed before development begins." },
+      { "q": "Can you improve an existing website?", "a": "Yes. We review the site and your goals, then identify changes to the structure, mobile layout, copy, forms or integrations. We agree a specific scope before making changes." },
+      { "q": "Do you work only with clients in Khujand?", "a": "We are based in Khujand and can work online with clients in other cities. Communication, content languages and the review process are discussed at the start." },
+      { "q": "Can you connect CRM, Telegram or AI tools?", "a": "Yes, these are MIRWINK service areas. First we define the task: receiving enquiries, managing customers or working with information. Integration options depend on the selected systems and available connections." }
+    ],
+    "ctaTitle": "Tell us about the website you need.",
+    "ctaText": "Describe your business, the task and the outcome you want. Share a link if you already have a site. We will discuss the scope and next steps online."
+  }
+}
